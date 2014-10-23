@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Leap Motion hands</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="http://js.leapmotion.com/leap-0.6.0-beta2.min.js"></script>
+    <script src="js/phaser.min.js"></script>
+    <script src="js/game-init.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/Preload.js"></script>
+    <script src="js/MainMenu.js"></script>
+    <script src="js/GamePlay.js"></script>
+    <script src="js/EndState.js"></script>
+  </head>
+  <body>
+    <script>
+      // Instantiate game
+      var game = new Phaser.Game(1440, 900, Phaser.CANVAS, 'gamecontainer', myGame.Preload);
+
+      //Create game states
+      game.state.add('Preload', myGame.Preload);
+      game.state.add('MainMenu', myGame.MainMenu);
+      game.state.add('GamePlay', myGame.GamePlay);
+      game.state.add('EndState', myGame.EndState);
+    </script>
+    <div id="gamecontainer"></div>
+  </body>
+</html>
