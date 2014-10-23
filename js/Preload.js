@@ -1,6 +1,8 @@
 myGame.Preload.prototype = {
   preload: function() {
     // Preload images for this state
+    this.load.image('square', 'assets/square.png');
+    this.load.image('circle', 'assets/circle.png');
   },
 
   create: function() {
