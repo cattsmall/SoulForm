@@ -1,4 +1,11 @@
 body {
   margin:0;
   padding:0;
+  background:#111;
+  font-family:'Mensch';
+}
+
+#gamecontainer canvas {
+  border:solid #333;
+  border-width: 0 1px;
 }
