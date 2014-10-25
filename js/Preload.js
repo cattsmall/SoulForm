@@ -9,9 +9,13 @@ myGame.Preload.prototype = {
     
     //Sound
     this.load.audio('button', [ 'assets/audio/button.mp3', 'assets/audio/button.wav' ]);
-    this.load.audio('pen', [ 'assets/audio/pen.mp3', 'assets/audio/pen.wav' ]);
-    this.load.audio('meow', [ 'assets/audio/meow.mp3', 'assets/audio/meow.wav' ]);
-    this.load.audio('dice', [ 'assets/audio/dice.mp3', 'assets/audio/dice.wav' ]);
+    this.load.audio('soundA', [ 'assets/audio/sound A.wav' ]);
+    this.load.audio('soundB', [ 'assets/audio/sound B.mp3', 'assets/audio/sound B.wav' ]);
+    this.load.audio('soundC', [ 'assets/audio/sound C.mp3', 'assets/audio/sound C.wav' ]);
+    this.load.audio('soundD', [ 'assets/audio/sound D.mp3', 'assets/audio/sound D.wav' ]);
+    this.load.audio('soundE', [ 'assets/audio/sound E.mp3', 'assets/audio/sound E.wav' ]);
+    this.load.audio('soundF', [ 'assets/audio/sound F.mp3', 'assets/audio/sound F.wav' ]);
+    this.load.audio('soundG', [ 'assets/audio/sound G.mp3', 'assets/audio/sound G.wav' ]);
   },
 
   create: function() {

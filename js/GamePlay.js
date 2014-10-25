@@ -4,8 +4,55 @@ myGame.GamePlay.prototype = {
   },
 
   create: function() {
-    //Sounds
-    sounds[0] = game.add.audio('button');
+    //A
+    sounds[0] = game.add.audio('soundA');
+  	sounds[0].addMarker('4', 0, .25);
+  	sounds[0].addMarker('3', .25, .25);
+  	sounds[0].addMarker('2', .5, .25);
+  	sounds[0].addMarker('1', .75, .25);
+  	sounds[0].addMarker('0', .9, .25);
+    //B
+    sounds[1] = game.add.audio('soundB');
+  	sounds[1].addMarker('4', 0, .25);
+  	sounds[1].addMarker('3', .25, .25);
+  	sounds[1].addMarker('2', .5, .25);
+  	sounds[1].addMarker('1', .75, .25);
+  	sounds[1].addMarker('0', 1, .25);
+    //C
+    sounds[2] = game.add.audio('soundC');
+  	sounds[2].addMarker('4', 0, .25);
+  	sounds[2].addMarker('3', .25, .25);
+  	sounds[2].addMarker('2', .5, .25);
+  	sounds[2].addMarker('1', .75, .25);
+  	sounds[2].addMarker('0', 1, .25);
+    //D
+    sounds[3] = game.add.audio('soundD');
+  	sounds[3].addMarker('4', 0, .25);
+  	sounds[3].addMarker('3', .25, .25);
+  	sounds[3].addMarker('2', .5, .25);
+  	sounds[3].addMarker('1', .75, .25);
+  	sounds[3].addMarker('0', 1, .25);
+    //E
+    sounds[4] = game.add.audio('soundE');
+  	sounds[4].addMarker('4', 0, .25);
+  	sounds[4].addMarker('3', .25, .25);
+  	sounds[4].addMarker('2', .5, .25);
+  	sounds[4].addMarker('1', .75, .25);
+  	sounds[4].addMarker('0', 1, .25);
+    //F
+    sounds[5] = game.add.audio('soundF');
+  	sounds[5].addMarker('4', 0, .25);
+  	sounds[5].addMarker('3', .25, .25);
+  	sounds[5].addMarker('2', .5, .25);
+  	sounds[5].addMarker('1', .75, .25);
+  	sounds[5].addMarker('0', 1, .25);
+    //G
+    sounds[6] = game.add.audio('soundG');
+  	sounds[6].addMarker('4', 0, .25);
+  	sounds[6].addMarker('3', .25, .25);
+  	sounds[6].addMarker('2', .5, .25);
+  	sounds[6].addMarker('1', .75, .25);
+  	sounds[6].addMarker('0', 1, .25);
     
     //Groups
     notes = game.add.group();
@@ -59,6 +106,16 @@ myGame.GamePlay.prototype = {
     timer = this.time.create(false);
     timer.loop(1000, myGame.updateTimer, this);
     timer.start();
+    
+    // Instructions
+    var instructionsStyle = {
+      fill: "#222222",
+      font: "48px Mensch",
+      fontWeight: 100,
+      align: "right"
+    };
+    instructionText = game.add.text(game.width-25, game.height-26, "Open hand to play notes, make a fist to stop", instructionsStyle);
+    instructionText.anchor.setTo(1);
   },
 
   update: function() {
@@ -78,9 +135,9 @@ myGame.GamePlay.prototype = {
     if (hand1) {
       circle1.alpha = 0.7;
       circle1.x = (position1[0] * 3.5) + game.width/2;
-      circle1.y = (-position1[1] * 2) + game.height * 1.2;
+      circle1.y = ((-position1[1] * 1.5) + game.height * .6) * 2;
     
-      if (hand1.pinchStrength > .6 || hand1.grabStrength > .6) {
+      if (hand1.pinchStrength > .2 || hand1.grabStrength > .2) {
         if (!tween1.isRunning) {
           tween1.start();
         }
@@ -99,10 +156,10 @@ myGame.GamePlay.prototype = {
   
     if (hand2) {
       circle2.alpha = 0.7;
-      circle2.x = (position2[0] * 3.5) + game.width/2 - 20;
-      circle2.y = (-position2[1] * 2) + game.height * 1.2;
+      circle2.x = (position2[0] * 3.5) + game.width/2;
+      circle2.y = ((-position2[1] * 1.5) + game.height * .6) * 2;
     
-      if (hand2.pinchStrength > .6 || hand2.grabStrength > .6) {
+      if (hand2.pinchStrength > .2 || hand2.grabStrength > .2) {
         if (!tween2.isRunning) {
           tween2.start();
         }
@@ -121,12 +178,12 @@ myGame.GamePlay.prototype = {
   },
   drawCircles: function() {
 
-    circle1 = this.add.sprite(game.width/2, game.height/2, 'circle');
+    circle1 = this.add.sprite(-100, -100, 'circle');
     // circle1.tint = 0x666666;
     circle1.alpha = 0.2;
     circle1.anchor.setTo(0.5, 0.5);
 
-    circle2 = this.add.sprite(game.width/2, game.height/2, 'circle');
+    circle2 = this.add.sprite(-100, -100, 'circle');
     // circle2.tint = 0x666666;
     circle2.alpha = 0.2;
     circle2.anchor.setTo(0.5, 0.5);
@@ -172,7 +229,9 @@ myGame.GamePlay.prototype = {
           noteObject[j] = this.add.sprite(columnX, noteY, 'square');
           noteObject[j].tint = colorString;
           noteObject[j].anchor.setTo(0.5, 0.5);
-          
+          noteObject[j].columnNumber = i;
+          noteObject[j].rowNumber = j;
+          noteObject[j].normalColor = colorString;
           game.physics.enable(noteObject[j], Phaser.Physics.ARCADE);
           
           if (j == 4) {
@@ -195,6 +254,7 @@ myGame.GamePlay.prototype = {
     }
   },
   collisionHandler: function(circle, note) {
+    
     noteScale = this.add.tween(note.scale).to({x:1.1, y:1.1}, 100).to({x:1, y:1}, 100);
     
     if (note.noteNumber) {
@@ -203,9 +263,22 @@ myGame.GamePlay.prototype = {
         
     if (!circle.pinch) {
       if (!note.played) {
+        note.tint = "0xffffff";
         note.played = true;
         score += 1;
-        sounds[0].play();
+        
+        //Using stringified variable doesn't seem to be working for marker...
+        if (note.rowNumber == 0) {
+          sounds[note.columnNumber].play('0');
+        } else if (note.rowNumber == 1) {
+          sounds[note.columnNumber].play('1');
+        } else if (note.rowNumber == 2) {
+          sounds[note.columnNumber].play('2');
+        } else if (note.rowNumber == 3) {
+          sounds[note.columnNumber].play('3');
+        } else {
+          sounds[note.columnNumber].play('4');
+        }
       }
       noteScale.start();
       
@@ -214,6 +287,7 @@ myGame.GamePlay.prototype = {
       }
     } else {
       note.played = false;
+      note.tint = note.normalColor;
       noteScale.stop();
       if (note.noteNumber) {
         textScale.stop();
@@ -223,6 +297,7 @@ myGame.GamePlay.prototype = {
   checkCollisionState: function(note) {
     if (!note.overlap(circle1) && !note.overlap(circle2)){
       note.played = false;
+      note.tint = note.normalColor;
     }
   }
 }
