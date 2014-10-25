@@ -4,6 +4,9 @@ myGame.GamePlay.prototype = {
   },
 
   create: function() {
+    //Sounds
+    sounds[0] = game.add.audio('button');
+    
     //Groups
     notes = game.add.group();
     circles = game.add.group();
@@ -61,10 +64,14 @@ myGame.GamePlay.prototype = {
     timeBox.width = (timeLeft/300) * game.width;
     timeBox.x = game.width - timeBox.width;
     
+    scoreString = "score: "+ score;
+    scoreText.setText(scoreString);
+    
     var pinch1, pinch2;
     
     this.physics.arcade.overlap(circle1, notes, this.collisionHandler, null, this);
     this.physics.arcade.overlap(circle2, notes, this.collisionHandler, null, this);
+    notes.forEach(this.checkCollisionState, this);
     
     if (hand1) {
       circle1.alpha = 0.7;
@@ -191,17 +198,29 @@ myGame.GamePlay.prototype = {
     if (note.noteNumber) {
       textScale = this.add.tween(noteText[note.noteNumber-1].scale).to({x:1.25, y:1.25}, 100).to({x:1, y:1}, 100);
     }
-    
+        
     if (!circle.pinch) {
+      if (!note.played) {
+        note.played = true;
+        score += 1;
+        sounds[0].play();
+      }
       noteScale.start();
+      
       if (note.noteNumber) {
         textScale.start();
       }
     } else {
+      note.played = false;
       noteScale.stop();
       if (note.noteNumber) {
         textScale.stop();
       }
+    }
+  },
+  checkCollisionState: function(note) {
+    if (!note.overlap(circle1) && !note.overlap(circle2)){
+      note.played = false;
     }
   }
 }

@@ -5,6 +5,7 @@ var circle1, circle2, circles, notes,
     
 var noteObject = [];
 var noteText = [];
+var sounds = [];
 
 
 /* --- GOOGLE WEBFONT OBJECT --- */
@@ -42,8 +43,13 @@ var myGame = {
   GamePlay: function(game) {},
   EndState: function(game) {},
   updateTimer: function(game){
-    timeLeft--;
-    myGame.convertTimeToString();
+    if (timeLeft >=0) {
+      timeLeft--;
+      myGame.convertTimeToString();
+    } else {
+      myGame.stopTimer();
+      this.state.start('GamePlay');
+    }
   },
   stopTimer: function(game) {
     this.timer.destroy();
