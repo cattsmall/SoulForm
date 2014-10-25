@@ -78,7 +78,7 @@ myGame.GamePlay.prototype = {
     if (hand1) {
       circle1.alpha = 0.7;
       circle1.x = (position1[0] * 3.5) + game.width/2;
-      circle1.y = (-position1[1] * 1.5) + game.height;
+      circle1.y = (-position1[1] * 2) + game.height * 1.2;
     
       if (hand1.pinchStrength > .6 || hand1.grabStrength > .6) {
         if (!tween1.isRunning) {
@@ -100,7 +100,7 @@ myGame.GamePlay.prototype = {
     if (hand2) {
       circle2.alpha = 0.7;
       circle2.x = (position2[0] * 3.5) + game.width/2 - 20;
-      circle2.y = (-position2[1] * 1.5) + game.height;
+      circle2.y = (-position2[1] * 2) + game.height * 1.2;
     
       if (hand2.pinchStrength > .6 || hand2.grabStrength > .6) {
         if (!tween2.isRunning) {
