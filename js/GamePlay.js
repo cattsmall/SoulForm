@@ -43,7 +43,9 @@ myGame.GamePlay.prototype = {
     scoreText = game.add.text(25, game.height-70, scoreString, scoreStyle);
     
     //Time string
-    timeLeft = 300;
+    START_TIME = 180;
+    timeLeft = START_TIME;
+    
     myGame.convertTimeToString();
     var timeStyle = {
       fill: "#ffffff",
@@ -61,7 +63,7 @@ myGame.GamePlay.prototype = {
 
   update: function() {
     timeText.setText(timeString);
-    timeBox.width = (timeLeft/300) * game.width;
+    timeBox.width = (timeLeft/START_TIME) * game.width;
     timeBox.x = game.width - timeBox.width;
     
     scoreString = "score: "+ score;
@@ -76,7 +78,7 @@ myGame.GamePlay.prototype = {
     if (hand1) {
       circle1.alpha = 0.7;
       circle1.x = (position1[0] * 3.5) + game.width/2;
-      circle1.y = (-position1[1] * 2) + game.height;
+      circle1.y = (-position1[1] * 1.5) + game.height;
     
       if (hand1.pinchStrength > .6 || hand1.grabStrength > .6) {
         if (!tween1.isRunning) {
@@ -98,7 +100,7 @@ myGame.GamePlay.prototype = {
     if (hand2) {
       circle2.alpha = 0.7;
       circle2.x = (position2[0] * 3.5) + game.width/2 - 20;
-      circle2.y = (-position2[1] * 2) + game.height;
+      circle2.y = (-position2[1] * 1.5) + game.height;
     
       if (hand2.pinchStrength > .6 || hand2.grabStrength > .6) {
         if (!tween2.isRunning) {
@@ -164,7 +166,7 @@ myGame.GamePlay.prototype = {
        
        //Vertical
        for (var j = 0; j < 5; j++) {
-          noteY = 198 + (126 * j);
+          noteY = 180 + (135 * j);
           colorString = "0x" + colorList[j];
           
           noteObject[j] = this.add.sprite(columnX, noteY, 'square');

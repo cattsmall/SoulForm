@@ -1,7 +1,7 @@
 // Declare global variables
 var circle1, circle2, circles, notes,
     hand1, hand2, position, tween1, tween2, tween1big, tween2big,
-    scoreBox, score, scoreString, scoreText, timeBox, timer, timeLeft, timeString, timeText;
+    scoreBox, score, scoreString, scoreText, timeBox, timer, timeLeft, timeString, timeText, START_TIME;
     
 var noteObject = [];
 var noteText = [];
