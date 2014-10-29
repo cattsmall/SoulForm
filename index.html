@@ -7,6 +7,7 @@
     <script src="js/leap-0.6.0-beta2.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/phaser.min.js"></script>
     <script src="js/game-init.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/Boot.js"></script>
     <script src="js/Preload.js"></script>
     <script src="js/MainMenu.js"></script>
     <script src="js/GamePlay.js"></script>
@@ -15,9 +16,10 @@
   <body>
     <script>
       // Instantiate game
-      var game = new Phaser.Game(1440, 900, Phaser.CANVAS, 'gamecontainer', myGame.Preload);
+      var game = new Phaser.Game(1440, 900, Phaser.CANVAS, 'gamecontainer', myGame.Boot);
 
       //Create game states
+      game.state.add('Boot', myGame.Boot);
       game.state.add('Preload', myGame.Preload);
       game.state.add('MainMenu', myGame.MainMenu);
       game.state.add('GamePlay', myGame.GamePlay);

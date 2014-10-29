@@ -40,6 +40,7 @@ Leap.loop(options, function(frame) {
 // Declare myGame, the object that contains our game's states
 var myGame = {
   //Define our game states
+  Boot: function(game) {},
   Preload: function(game) {},
   MainMenu: function(game) {},
   GamePlay: function(game) {},
