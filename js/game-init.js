@@ -37,6 +37,26 @@ Leap.loop(options, function(frame) {
   }
 });
 
+// Recorder
+window.onload = function init() {
+  try {
+    // webkit shim
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+    window.URL = window.URL || window.webkitURL;
+    
+    audio_context = new AudioContext;
+    __log('Audio context set up.');
+    __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
+  } catch (e) {
+    alert('No web audio support in this browser!');
+  }
+  
+  navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
+    __log('No live audio input: ' + e);
+  });
+};
+
 // Declare myGame, the object that contains our game's states
 var myGame = {
   //Define our game states
@@ -44,26 +64,5 @@ var myGame = {
   Preload: function(game) {},
   MainMenu: function(game) {},
   GamePlay: function(game) {},
-  EndState: function(game) {},
-  updateTimer: function(game){
-    if (timeLeft >=0) {
-      timeLeft--;
-      myGame.convertTimeToString();
-    } else {
-      myGame.stopTimer();
-      this.state.start('GamePlay');
-    }
-  },
-  stopTimer: function(game) {
-    this.timer.destroy();
-  },
-  convertTimeToString: function(game) {
-    var minutes = Math.floor((timeLeft) / 60);
-    var seconds = timeLeft - (minutes * 60);
-
-    if (minutes < 10) {minutes = minutes;}
-    if (seconds < 10) {seconds = "0"+seconds;}
-    timeString    = minutes +':'+ seconds;
-    return timeString;
-  }
+  EndState: function(game) {}
 };

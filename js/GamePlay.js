@@ -80,38 +80,36 @@ myGame.GamePlay.prototype = {
     scoreBox = this.add.sprite(0,game.height-100, boxBmp2);
     
     //Score
-    score = 0;
-    scoreString = "score: "+ score;
-    var scoreStyle = {
-      fill: "#666666",
-      font: "48px Mensch",
-      fontWeight: 100
-    };
-    scoreText = game.add.text(25, game.height-70, scoreString, scoreStyle);
+    // score = 0;
+//     scoreString = "score: "+ score;
+//     var scoreStyle = {
+//       font: "48px Mensch"
+//       fill: "#666666"
+//     };
+//     scoreText = game.add.text(25, game.height-70, scoreString, scoreStyle);
     
     //Time string
     START_TIME = 180;
     timeLeft = START_TIME;
     
-    myGame.convertTimeToString();
+    this.convertTimeToString();
     var timeStyle = {
-      fill: "#ffffff",
       font: "64px Mensch",
-      align: "center",
+      fill: "#ffffff",
+      align: "center"
     };
     timeText = game.add.text(game.width/2, 50, timeString, timeStyle);
     timeText.anchor.setTo(0.5);
     
     //  Create our Timer
-    timer = this.time.create(false);
-    timer.loop(1000, myGame.updateTimer, this);
-    timer.start();
+    this.timer = this.time.create(false);
+    this.timer.loop(1000, this.updateTimer, this);
+    this.timer.start();
     
     // Instructions
     var instructionsStyle = {
-      fill: "#222222",
       font: "48px Mensch",
-      fontWeight: 100,
+      fill: "#333333",
       align: "right"
     };
     instructionText = game.add.text(game.width-25, game.height-26, "Open hand to play notes, make a fist to stop", instructionsStyle);
@@ -123,8 +121,8 @@ myGame.GamePlay.prototype = {
     timeBox.width = (timeLeft/START_TIME) * game.width;
     timeBox.x = game.width - timeBox.width;
     
-    scoreString = "score: "+ score;
-    scoreText.setText(scoreString);
+    // scoreString = "score: "+ score;
+    // scoreText.setText(scoreString);
     
     var pinch1, pinch2;
     
@@ -299,5 +297,28 @@ myGame.GamePlay.prototype = {
       note.played = false;
       note.tint = note.normalColor;
     }
+  },
+  updateTimer: function(game){
+    if (timeLeft >0) {
+      timeLeft--;
+      console.log(timeLeft);
+      this.convertTimeToString();
+    } else {
+      this.stopTimer();
+      // this.state.start('GamePlay');
+    }
+  },
+  stopTimer: function(game) {
+    this.timer.destroy();
+    console.log("done");
+  },
+  convertTimeToString: function(game) {
+    var minutes = Math.floor((timeLeft) / 60);
+    var seconds = timeLeft - (minutes * 60);
+
+    if (minutes < 10) {minutes = minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    timeString    = minutes +':'+ seconds;
+    return timeString;
   }
 }
