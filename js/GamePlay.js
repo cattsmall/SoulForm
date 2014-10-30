@@ -89,7 +89,7 @@ myGame.GamePlay.prototype = {
 //     scoreText = game.add.text(25, game.height-70, scoreString, scoreStyle);
     
     //Time string
-    START_TIME = 180;
+    START_TIME = 5;
     timeLeft = START_TIME;
     
     this.convertTimeToString();
@@ -114,6 +114,8 @@ myGame.GamePlay.prototype = {
     };
     instructionText = game.add.text(game.width-25, game.height-26, "Open hand to play notes, make a fist to stop", instructionsStyle);
     instructionText.anchor.setTo(1);
+    
+    startRecording();
   },
 
   update: function() {
@@ -305,12 +307,13 @@ myGame.GamePlay.prototype = {
       this.convertTimeToString();
     } else {
       this.stopTimer();
-      // this.state.start('GamePlay');
     }
   },
   stopTimer: function(game) {
     this.timer.destroy();
+    stopRecording();
     console.log("done");
+    // this.state.start('MainMenu');
   },
   convertTimeToString: function(game) {
     var minutes = Math.floor((timeLeft) / 60);

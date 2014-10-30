@@ -1,5 +1,6 @@
 // Declare global variables
-var circle1, circle2, circles, notes,
+var audio_context, recorder, 
+    circle1, circle2, circles, notes,
     hand1, hand2, position, tween1, tween2, tween1big, tween2big,
     scoreBox, score, scoreString, scoreText, timeBox, timer, timeLeft, timeString, timeText, START_TIME,
     instructionText;
@@ -38,24 +39,50 @@ Leap.loop(options, function(frame) {
 });
 
 // Recorder
-window.onload = function init() {
-  try {
-    // webkit shim
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
-    window.URL = window.URL || window.webkitURL;
-    
-    audio_context = new AudioContext;
-    __log('Audio context set up.');
-    __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
-  } catch (e) {
-    alert('No web audio support in this browser!');
-  }
+function startUserMedia(stream) {
+  var input = audio_context.createMediaStreamSource(stream);
+  console.log('Media stream created.');
   
-  navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
-    __log('No live audio input: ' + e);
+  input.connect(audio_context.destination);
+  console.log('Input connected to audio context destination.');
+  
+  recorder = new Recorder(input);
+  console.log('Recorder initialised.');
+}
+
+function startRecording() {
+  recorder && recorder.record();
+  console.log('Recording...');
+}
+
+function stopRecording() {
+  recorder && recorder.stop();
+  console.log('Stopped recording.');
+  
+  // create WAV download link using audio data blob
+  createDownloadLink();
+  
+  recorder.clear();
+}
+
+function createDownloadLink() {
+  recorder && recorder.exportWAV(function(blob) {
+    var url = URL.createObjectURL(blob);
+    var li = document.createElement('div');
+    var au = document.createElement('audio');
+    var hf = document.createElement('a');
+
+    var container = document.getElementById("gamecontainer");
+    au.controls = true;
+    au.src = url;
+    hf.href = url;
+    hf.download = new Date().toISOString() + '.wav';
+    hf.innerHTML = hf.download;
+    li.appendChild(au);
+    li.appendChild(hf);
+    container.appendChild(li);
   });
-};
+}
 
 // Declare myGame, the object that contains our game's states
 var myGame = {

@@ -10,6 +10,9 @@ myGame.Preload.prototype = {
     this.load.image('square', 'assets/images/square.png');
     this.load.image('circle', 'assets/images/circle.png');
     
+    //Buttons
+    this.load.spritesheet('startButton', 'assets/images/startbutton.png', 300, 300);
+    
     //Sound
     this.load.audio('button', [ 'assets/audio/button.mp3', 'assets/audio/button.wav' ]);
     this.load.audio('soundA', [ 'assets/audio/sound A.wav' ]);
@@ -24,6 +27,23 @@ myGame.Preload.prototype = {
   create: function() {
     console.log("Preload");
     
+    // recorder
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    navigator.getUserMedia = (
+      navigator.getUserMedia ||
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia ||
+        navigator.msGetUserMedia
+    );
+    window.URL = window.URL || window.webkitURL;
+
+    audio_context = new AudioContext;
+    console.log('Audio context set up.');
+    console.log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
+
+    navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
+      console.log('No live audio input: ' + e);
+    });
     this.state.start('MainMenu');
   },
   update: function() {
