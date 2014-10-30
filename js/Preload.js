@@ -1,15 +1,12 @@
 myGame.Preload.prototype = {
   preload: function() {
+    this.loadingImage = this.add.sprite( this.world.centerX, this.world.centerY, 'loadingImage');
+    this.loadingImage.anchor.setTo(0.5);
+    
     //Fonts
     this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
-    var loadingStyle = {
-      fill: "#999999",
-      font: "100px Mensch",
-      fontWeight: 100
-    };
-    this.loadingText = game.add.text(this.world.centerX, this.world.centerY, "Loading...", loadingStyle);
-    this.loadingText.anchor.setTo(0.5);
     
+    //Images
     this.load.image('square', 'assets/images/square.png');
     this.load.image('circle', 'assets/images/circle.png');
     

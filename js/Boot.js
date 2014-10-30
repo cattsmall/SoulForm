@@ -1,6 +1,7 @@
 myGame.Boot.prototype = {
   preload: function() {
-
+    // Preload images for this state
+    this.load.spritesheet('loadingImage', 'assets/images/loading.png', 374,103);
   },
 
   create: function() {
