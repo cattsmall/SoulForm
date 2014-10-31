@@ -89,7 +89,7 @@ myGame.GamePlay.prototype = {
 //     scoreText = game.add.text(25, game.height-70, scoreString, scoreStyle);
     
     //Time string
-    START_TIME = 5;
+    START_TIME = 180;
     timeLeft = START_TIME;
     
     this.convertTimeToString();
