@@ -16,7 +16,7 @@ SoulForm is a game/interactive piece I'm working on.
 
 [![](https://i.creativecommons.org/l/by-nc/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc/4.0/)
 
-Work in the `assets/images` and `assets/fonts` directories is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](http://creativecommons.org/licenses/by-nc/4.0/).
+Work in the `assets/images` and `assets/audio` directories is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](http://creativecommons.org/licenses/by-nc/4.0/).
 
 ####You are free to:
 
