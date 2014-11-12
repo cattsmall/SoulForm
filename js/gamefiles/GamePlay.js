@@ -313,7 +313,7 @@ myGame.GamePlay.prototype = {
     this.timer.destroy();
     stopRecording();
     console.log("done");
-    // this.state.start('MainMenu');
+    this.state.start('MainMenu');
   },
   convertTimeToString: function(game) {
     var minutes = Math.floor((timeLeft) / 60);

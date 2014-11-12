@@ -48,7 +48,5 @@ myGame.Preload.prototype = {
   },
   update: function() {
     // Update objects & variables
-  },
-  changeText: function(text) {
   }
 }
