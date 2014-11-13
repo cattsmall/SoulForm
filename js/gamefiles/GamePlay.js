@@ -62,22 +62,29 @@ myGame.GamePlay.prototype = {
     this.drawCircles();
     this.physics.arcade.collide(circles, notes);
     
+    // if (!singleScreen) {
+    //   colorBoxRight.x = singleScreenSize*2;
+    // } else {
+    //   colorBoxLeft.visible = false;
+    //   colorBoxRight.visible = false;
+    // }
+    
     //Background box (score)
-    boxBmp1 = this.add.bitmapData(game.width/3, game.height);
+    boxBmp1 = this.add.bitmapData(singleScreenSize, game.height);
     boxBmp1.ctx.fillStyle = "#333333";
     boxBmp1.ctx.beginPath();
-    boxBmp1.ctx.rect(0, 0, game.width/3, 100);
+    boxBmp1.ctx.rect(0, 0, singleScreenSize, 100);
     boxBmp1.ctx.fill();
     
-    timeBox = this.add.sprite(game.width/3,0, boxBmp1);
+    timeBox = this.add.sprite(singleScreenSize,0, boxBmp1);
     
     //Background box (time)
-    boxBmp2 = this.add.bitmapData(game.width/3, game.height);
+    boxBmp2 = this.add.bitmapData(singleScreenSize, game.height);
     boxBmp2.ctx.fillStyle = "#111111";
     boxBmp2.ctx.beginPath();
-    boxBmp2.ctx.rect(0, 0, game.width/3, 100);
+    boxBmp2.ctx.rect(0, 0, singleScreenSize, 100);
     boxBmp2.ctx.fill();
-    scoreBox = this.add.sprite(game.width/3,game.height-100, boxBmp2);
+    scoreBox = this.add.sprite(0,game.height-100, boxBmp2);
     
     //Score
     // score = 0;
@@ -89,7 +96,7 @@ myGame.GamePlay.prototype = {
 //     scoreText = game.add.text(25, game.height-70, scoreString, scoreStyle);
     
     //Time string
-    START_TIME = 180;
+    START_TIME = 60*5;
     timeLeft = START_TIME;
     
     this.convertTimeToString();
@@ -112,32 +119,46 @@ myGame.GamePlay.prototype = {
       fill: "#333333",
       align: "right"
     };
-    instructionText = game.add.text((game.width/3*2)-25, game.height-26, "Open hand to play notes, make a fist to stop", instructionsStyle);
+    instructionText = game.add.text(singleScreenSize-25, game.height-26, "Open hand to play notes, make a fist to stop", instructionsStyle);
     instructionText.anchor.setTo(1);
     
     //color box (left)
-    boxBmp3 = this.add.bitmapData(game.width/3, game.height);
+    boxBmp3 = this.add.bitmapData(singleScreenSize, game.height);
     boxBmp3.ctx.fillStyle = "#666666";
     boxBmp3.ctx.beginPath();
-    boxBmp3.ctx.rect(0, 0, game.width/3, game.height);
+    boxBmp3.ctx.rect(0, 0, singleScreenSize, game.height);
     boxBmp3.ctx.fill();
     colorBoxLeft = this.add.sprite(0,0, boxBmp3);
     
     //color box (right)
-    boxBmp3 = this.add.bitmapData(game.width/3, game.height);
+    boxBmp3 = this.add.bitmapData(singleScreenSize, game.height);
     boxBmp3.ctx.fillStyle = "#666666";
     boxBmp3.ctx.beginPath();
-    boxBmp3.ctx.rect(0, 0, game.width/3, game.height);
+    boxBmp3.ctx.rect(0, 0, singleScreenSize, game.height);
     boxBmp3.ctx.fill();
-    colorBoxRight = this.add.sprite(game.width/3*2,0, boxBmp3);
+    colorBoxRight = this.add.sprite(singleScreenSize,0, boxBmp3);
+    
+    if (!singleScreen) {
+      scoreBox.x = singleScreenSize;
+      instructionText.x = singleScreenSize*2 - 25;
+      colorBoxRight.x = singleScreenSize*2;
+    } else {
+      colorBoxLeft.visible = false;
+      colorBoxRight.visible = false;
+    }
     
     // startRecording();
   },
 
   update: function() {
     timeText.setText(timeString);
-    timeBox.width = (timeLeft/START_TIME) * game.width/3;
-    timeBox.x = (game.width/3*2) - timeBox.width;
+    timeBox.width = (timeLeft/START_TIME) * singleScreenSize;
+    if (!singleScreen) {
+      timeBox.x = (singleScreenSize*2) - timeBox.width;
+    } else {
+      timeBox.x = singleScreenSize - timeBox.width;
+
+    }
     
     // scoreString = "score: "+ score;
     // scoreText.setText(scoreString);
@@ -149,48 +170,40 @@ myGame.GamePlay.prototype = {
     notes.forEach(this.checkCollisionState, this);
     
     if (hand1) {
-      circle1.alpha = 0.7;
-      circle1.x = (position1[0] * 3.5) + game.width/2;
-      circle1.y = ((-position1[1] * 1.5) + game.height * .6) * 2;
-    
-      if (hand1.pinchStrength > .2 || hand1.grabStrength > .2) {
-        if (!tween1.isRunning) {
-          tween1.start();
-        }
-        
-        circle1.pinch = true;
-      } else {
-        if (!tween1big.isRunning) {
-          tween1big.start();
-        }
-        
-        circle1.pinch = false;
-      }
+      this.monitorHand(hand1, circle1, position1, tween1, tween1big);
     } else {
-      circle1.alpha = 0.2;
+      circle1.visible = false;
     }
-  
+    
     if (hand2) {
-      circle2.alpha = 0.7;
-      circle2.x = (position2[0] * 3.5) + game.width/2;
-      circle2.y = ((-position2[1] * 1.5) + game.height * .6) * 2;
-    
-      if (hand2.pinchStrength > .2 || hand2.grabStrength > .2) {
-        if (!tween2.isRunning) {
-          tween2.start();
-        }
-        
-        circle2.pinch = true;
-      } else {
-        if (!tween2big.isRunning) {
-          tween2big.start();
-        }
-        
-        circle2.pinch = false;
-      }
+      this.monitorHand(hand2, circle2, position2, tween2, tween2big);
     } else {
-      circle2.alpha = 0.2;
+      circle2.visible = false;
     }
+  },
+  monitorHand:function(hand, circle, position, smalltween, bigtween) {
+    circle.visible = true;
+    circle.x = (position[0] * 3.5) + game.width/2;
+  
+    if (hand.pinchStrength > .2 || hand.grabStrength > .2) {
+      if (!smalltween.isRunning) {
+        smalltween.start();
+        circle.alpha = 0.6;
+      }
+      
+      circle.pinch = true;
+      circle.y = ((-position[1] * 1.5) + game.height * .7) * 2;
+    } else {
+      if (!bigtween.isRunning) {
+        bigtween.start();
+        circle.alpha = 0.8;
+      }
+      
+      circle.pinch = false;
+      circle.y = ((-position[1] * 1.5) + game.height * .69) * 2;
+    }
+    
+    // console.log(hand);
   },
   drawCircles: function() {
 
@@ -234,12 +247,16 @@ myGame.GamePlay.prototype = {
     
     // Horizontal
     for (var i = 0; i < 7; i++) {
-       columnX = ((game.width/3)/7 * i) + (game.width/3) + 102.5;
+      if (!singleScreen) {
+        columnX = (singleScreenSize/7 * i) + singleScreenSize + 135;
+      } else {
+        columnX = (singleScreenSize/7 * i) + 135;
+      }
        var colorList = colors[i];
        
        //Vertical
        for (var j = 0; j < 5; j++) {
-          noteY = 180 + (135 * j);
+          noteY = 200 + (170 * j);
           colorString = "0x" + colorList[j];
           
           noteObject[j] = this.add.sprite(columnX, noteY, 'square');
@@ -280,6 +297,7 @@ myGame.GamePlay.prototype = {
     if (!circle.pinch) {
       if (!note.played) {
         note.tint = "0xffffff";
+        note.alpha = 0.8;
         note.played = true;
         score += 1;
         
@@ -314,6 +332,7 @@ myGame.GamePlay.prototype = {
     if (!note.overlap(circle1) && !note.overlap(circle2)){
       note.played = false;
       note.tint = note.normalColor;
+      note.alpha = 1;
     }
   },
   updateTimer: function(game){

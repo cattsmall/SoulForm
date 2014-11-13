@@ -16,8 +16,23 @@
   </head>
   <body>
     <script>
-      var GAME_WIDTH = 1920*3;
-      var GAME_HEIGHT = 1080
+    
+    
+      var GAME_WIDTH;
+      var GAME_HEIGHT;
+      var singleScreen = true;
+      var singleScreenSize = GAME_WIDTH/3;
+      
+      if (!singleScreen) {
+        GAME_WIDTH = 1920*3;
+        GAME_HEIGHT = 1080;
+        singleScreenSize = GAME_WIDTH/3;
+        
+      } else {
+        GAME_WIDTH = 1920;
+        GAME_HEIGHT = 1080;
+        singleScreenSize = GAME_WIDTH;
+      }
     
       // Instantiate game
       var game = new Phaser.Game(GAME_WIDTH, GAME_HEIGHT, Phaser.CANVAS, 'gamecontainer', myGame.Boot);
