@@ -2,6 +2,7 @@
 var audio_context, recorder, 
     circle1, circle2, circles, notes,
     hand1, hand2, position, tween1, tween2, tween1big, tween2big,
+    key_W, key_A, key_S, key_D,
     scoreBox, score, scoreString, scoreText, timeBox, timer, timeLeft, timeString, timeText, START_TIME,
     instructionText;
     

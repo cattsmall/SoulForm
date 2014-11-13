@@ -147,6 +147,26 @@ myGame.GamePlay.prototype = {
       colorBoxRight.visible = false;
     }
     
+    key_W = game.input.keyboard.addKey(Phaser.Keyboard.W);
+    key_W.onDown.add(function(){
+      this.playBeat(key_W);
+    }, this);
+    
+    key_A = game.input.keyboard.addKey(Phaser.Keyboard.A);
+    key_A.onDown.add(function(){
+      this.playBeat(key_A);
+    }, this);
+    
+    key_S = game.input.keyboard.addKey(Phaser.Keyboard.S);
+    key_S.onDown.add(function(){
+      this.playBeat(key_S);
+    }, this);
+    
+    key_D = game.input.keyboard.addKey(Phaser.Keyboard.D);
+    key_D.onDown.add(function(){
+      this.playBeat(key_D);
+    }, this);
+    
     // startRecording();
   },
 
@@ -248,9 +268,9 @@ myGame.GamePlay.prototype = {
     // Horizontal
     for (var i = 0; i < 7; i++) {
       if (!singleScreen) {
-        columnX = (singleScreenSize/7 * i) + singleScreenSize + 135;
+        columnX = (singleScreenSize/7 * i) + singleScreenSize + 137;
       } else {
-        columnX = (singleScreenSize/7 * i) + 135;
+        columnX = (singleScreenSize/7 * i) + 137;
       }
        var colorList = colors[i];
        
@@ -338,7 +358,6 @@ myGame.GamePlay.prototype = {
   updateTimer: function(game){
     if (timeLeft >0) {
       timeLeft--;
-      console.log(timeLeft);
       this.convertTimeToString();
     } else {
       this.stopTimer();
@@ -358,5 +377,66 @@ myGame.GamePlay.prototype = {
     if (seconds < 10) {seconds = "0"+seconds;}
     timeString    = minutes +':'+ seconds;
     return timeString;
+  },
+  playBeat: function(key) {
+    
+    switch (key) {
+      case key_W:
+        this.changeBackgroundColors();
+        break;
+      case key_A:
+        this.changeBackgroundColors();
+        break;
+      case key_S:
+        this.changeBackgroundColors();
+        break;
+      default:
+        this.changeBackgroundColors();
+        break;
+    }
+  },
+  changeBackgroundColors: function(){
+    if (!singleScreen) { 
+      var n = this.rnd.integerInRange(0, 6);
+      var m = this.rnd.integerInRange(0, 4);
+           
+      var colors = [];
+      colors[0] = ["0098ff", "0083cc", "006299", "004266", "002133"];
+      colors[1] = ["ff00e7", "cc00c2", "990092", "660061", "330031"];
+      colors[2] = ["ffce00", "e5b900", "d8ae00", "a38400", "7f6700"];
+      colors[3] = ["0000ff", "0000cc", "000099", "000066", "000033"];
+      colors[4] = ["ff6700", "cc5200", "993e00", "662900", "331500"];
+      colors[5] = ["00ff00", "00e500", "00cc00", "00a500", "009200"];
+      colors[6] = ["ff2a00", "cc1d00", "991600", "660e00", "330700"];
+      
+      var colorList = colors[n];
+      var colorString = "0x" + colorList[m];
+      
+      var currentTint = colorBoxLeft.tint;
+      
+      this.tweenTint(colorBoxLeft, currentTint, colorString, 400);
+      this.tweenTint(colorBoxRight, currentTint, colorString, 400);
+      // colorBoxLeft.tint = colorString;
+      // colorBoxRight.tint = colorString;
+    }
+  },
+  tweenTint: function(obj, startColor, endColor, time) {
+      // create an object to tween with our step value at 0
+      var colorBlend = {step: 0};
+
+      // create the tween on this object and tween its step property to 100
+      var colorTween = game.add.tween(colorBlend).to({step: 100}, time);
+    
+      // run the interpolateColor function every time the tween updates, feeding it the
+      // updated value of our tween each time, and set the result as our tint
+      colorTween.onUpdateCallback(function() {
+        obj.tint = Phaser.Color.interpolateColor(startColor, endColor, 100, colorBlend.step);   
+      });
+    
+      // set the object to the start color straight away
+      obj.tint = startColor;    
+    
+      // start the tween
+      colorTween.start();
   }
 }
