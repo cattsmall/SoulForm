@@ -28,22 +28,22 @@ myGame.Preload.prototype = {
     console.log("Preload");
     
     // recorder
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    navigator.getUserMedia = (
-      navigator.getUserMedia ||
-        navigator.webkitGetUserMedia ||
-        navigator.mozGetUserMedia ||
-        navigator.msGetUserMedia
-    );
-    window.URL = window.URL || window.webkitURL;
-
-    audio_context = new AudioContext;
-    console.log('Audio context set up.');
-    console.log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
-
-    navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
-      console.log('No live audio input: ' + e);
-    });
+    // window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    // navigator.getUserMedia = (
+    //   navigator.getUserMedia ||
+    //     navigator.webkitGetUserMedia ||
+    //     navigator.mozGetUserMedia ||
+    //     navigator.msGetUserMedia
+    // );
+    // window.URL = window.URL || window.webkitURL;
+    //
+    // audio_context = new AudioContext;
+    // console.log('Audio context set up.');
+    // console.log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
+    //
+    // navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
+    //   console.log('No live audio input: ' + e);
+    // });
     this.state.start('MainMenu');
   },
   update: function() {

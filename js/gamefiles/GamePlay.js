@@ -63,21 +63,21 @@ myGame.GamePlay.prototype = {
     this.physics.arcade.collide(circles, notes);
     
     //Background box (score)
-    boxBmp1 = this.add.bitmapData(game.width, game.height);
+    boxBmp1 = this.add.bitmapData(game.width/3, game.height);
     boxBmp1.ctx.fillStyle = "#333333";
     boxBmp1.ctx.beginPath();
-    boxBmp1.ctx.rect(0, 0, game.width, 100);
+    boxBmp1.ctx.rect(0, 0, game.width/3, 100);
     boxBmp1.ctx.fill();
     
-    timeBox = this.add.sprite(0,0, boxBmp1);
+    timeBox = this.add.sprite(game.width/3,0, boxBmp1);
     
     //Background box (time)
-    boxBmp2 = this.add.bitmapData(game.width, game.height);
+    boxBmp2 = this.add.bitmapData(game.width/3, game.height);
     boxBmp2.ctx.fillStyle = "#111111";
     boxBmp2.ctx.beginPath();
-    boxBmp2.ctx.rect(0, 0, game.width, 100);
+    boxBmp2.ctx.rect(0, 0, game.width/3, 100);
     boxBmp2.ctx.fill();
-    scoreBox = this.add.sprite(0,game.height-100, boxBmp2);
+    scoreBox = this.add.sprite(game.width/3,game.height-100, boxBmp2);
     
     //Score
     // score = 0;
@@ -112,16 +112,32 @@ myGame.GamePlay.prototype = {
       fill: "#333333",
       align: "right"
     };
-    instructionText = game.add.text(game.width-25, game.height-26, "Open hand to play notes, make a fist to stop", instructionsStyle);
+    instructionText = game.add.text((game.width/3*2)-25, game.height-26, "Open hand to play notes, make a fist to stop", instructionsStyle);
     instructionText.anchor.setTo(1);
     
-    startRecording();
+    //color box (left)
+    boxBmp3 = this.add.bitmapData(game.width/3, game.height);
+    boxBmp3.ctx.fillStyle = "#666666";
+    boxBmp3.ctx.beginPath();
+    boxBmp3.ctx.rect(0, 0, game.width/3, game.height);
+    boxBmp3.ctx.fill();
+    colorBoxLeft = this.add.sprite(0,0, boxBmp3);
+    
+    //color box (right)
+    boxBmp3 = this.add.bitmapData(game.width/3, game.height);
+    boxBmp3.ctx.fillStyle = "#666666";
+    boxBmp3.ctx.beginPath();
+    boxBmp3.ctx.rect(0, 0, game.width/3, game.height);
+    boxBmp3.ctx.fill();
+    colorBoxRight = this.add.sprite(game.width/3*2,0, boxBmp3);
+    
+    // startRecording();
   },
 
   update: function() {
     timeText.setText(timeString);
-    timeBox.width = (timeLeft/START_TIME) * game.width;
-    timeBox.x = game.width - timeBox.width;
+    timeBox.width = (timeLeft/START_TIME) * game.width/3;
+    timeBox.x = (game.width/3*2) - timeBox.width;
     
     // scoreString = "score: "+ score;
     // scoreText.setText(scoreString);
@@ -218,7 +234,7 @@ myGame.GamePlay.prototype = {
     
     // Horizontal
     for (var i = 0; i < 7; i++) {
-       columnX = ((game.width/7) * i) + 102.5;
+       columnX = ((game.width/3)/7 * i) + (game.width/3) + 102.5;
        var colorList = colors[i];
        
        //Vertical
