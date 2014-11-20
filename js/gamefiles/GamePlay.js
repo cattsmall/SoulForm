@@ -54,7 +54,29 @@ myGame.GamePlay.prototype = {
   	sounds[6].addMarker('1', .75, .25);
   	sounds[6].addMarker('0', 1, .25);
     
+    bassW = game.add.audio('bassW');
+    bassA = game.add.audio('bassA');
+    bassS = game.add.audio('bassS');
+    bassD = game.add.audio('bassD');
+    
+    //color box (left)
+    boxBmp3 = this.add.bitmapData(singleScreenSize, game.height);
+    boxBmp3.ctx.fillStyle = "#666666";
+    boxBmp3.ctx.beginPath();
+    boxBmp3.ctx.rect(0, 0, singleScreenSize, game.height);
+    boxBmp3.ctx.fill();
+    colorBoxLeft = this.add.sprite(0,0, boxBmp3);
+    
+    //color box (right)
+    boxBmp3 = this.add.bitmapData(singleScreenSize, game.height);
+    boxBmp3.ctx.fillStyle = "#666666";
+    boxBmp3.ctx.beginPath();
+    boxBmp3.ctx.rect(0, 0, singleScreenSize, game.height);
+    boxBmp3.ctx.fill();
+    colorBoxRight = this.add.sprite(singleScreenSize,0, boxBmp3);
+    
     //Groups
+    stars = game.add.group();
     notes = game.add.group();
     circles = game.add.group();
 
@@ -121,22 +143,6 @@ myGame.GamePlay.prototype = {
     };
     instructionText = game.add.text(singleScreenSize-25, game.height-26, "Open hand to play notes, make a fist to stop", instructionsStyle);
     instructionText.anchor.setTo(1);
-    
-    //color box (left)
-    boxBmp3 = this.add.bitmapData(singleScreenSize, game.height);
-    boxBmp3.ctx.fillStyle = "#666666";
-    boxBmp3.ctx.beginPath();
-    boxBmp3.ctx.rect(0, 0, singleScreenSize, game.height);
-    boxBmp3.ctx.fill();
-    colorBoxLeft = this.add.sprite(0,0, boxBmp3);
-    
-    //color box (right)
-    boxBmp3 = this.add.bitmapData(singleScreenSize, game.height);
-    boxBmp3.ctx.fillStyle = "#666666";
-    boxBmp3.ctx.beginPath();
-    boxBmp3.ctx.rect(0, 0, singleScreenSize, game.height);
-    boxBmp3.ctx.fill();
-    colorBoxRight = this.add.sprite(singleScreenSize,0, boxBmp3);
     
     if (!singleScreen) {
       scoreBox.x = singleScreenSize;
@@ -382,23 +388,31 @@ myGame.GamePlay.prototype = {
     
     switch (key) {
       case key_W:
-        this.changeBackgroundColors();
+        bassW.play();
         break;
       case key_A:
-        this.changeBackgroundColors();
+        bassA.play();
         break;
       case key_S:
-        this.changeBackgroundColors();
+        bassS.play();
         break;
       default:
-        this.changeBackgroundColors();
+        bassD.play();
         break;
     }
+    this.changeBackgroundColors();
+    
   },
   changeBackgroundColors: function(){
-    if (!singleScreen) { 
+    if (!singleScreen) {
       var n = this.rnd.integerInRange(0, 6);
       var m = this.rnd.integerInRange(0, 4);
+      
+      var star1 = stars.create(0, game.world.randomY, 'star');
+      var star2 = stars.create(0, game.world.randomY, 'star');
+      
+      star1.scale.set(n/5,n/5);
+      star2.scale.set(m/5,m/5);      
            
       var colors = [];
       colors[0] = ["0098ff", "0083cc", "006299", "004266", "002133"];
@@ -414,29 +428,8 @@ myGame.GamePlay.prototype = {
       
       var currentTint = colorBoxLeft.tint;
       
-      this.tweenTint(colorBoxLeft, currentTint, colorString, 400);
-      this.tweenTint(colorBoxRight, currentTint, colorString, 400);
-      // colorBoxLeft.tint = colorString;
-      // colorBoxRight.tint = colorString;
+      colorBoxLeft.tint = colorString;
+      colorBoxRight.tint = colorString;
     }
-  },
-  tweenTint: function(obj, startColor, endColor, time) {
-      // create an object to tween with our step value at 0
-      var colorBlend = {step: 0};
-
-      // create the tween on this object and tween its step property to 100
-      var colorTween = game.add.tween(colorBlend).to({step: 100}, time);
-    
-      // run the interpolateColor function every time the tween updates, feeding it the
-      // updated value of our tween each time, and set the result as our tint
-      colorTween.onUpdateCallback(function() {
-        obj.tint = Phaser.Color.interpolateColor(startColor, endColor, 100, colorBlend.step);   
-      });
-    
-      // set the object to the start color straight away
-      obj.tint = startColor;    
-    
-      // start the tween
-      colorTween.start();
   }
 }

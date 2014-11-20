@@ -9,12 +9,17 @@ myGame.Preload.prototype = {
     //Images
     this.load.image('square', 'assets/images/square.png');
     this.load.image('circle', 'assets/images/circle.png');
+    this.load.image('star', 'assets/images/star.png');
     
     //Buttons
     this.load.spritesheet('startButton', 'assets/images/startbutton.png', 300, 300);
     
-    //Sound
-    this.load.audio('button', [ 'assets/audio/button.mp3', 'assets/audio/button.wav' ]);
+    //Sounds
+    this.load.audio('bassW', [ 'assets/audio/bass W.mp3', 'assets/audio/bass W.wav' ]);
+    this.load.audio('bassA', [ 'assets/audio/bass A.mp3', 'assets/audio/bass A.wav' ]);
+    this.load.audio('bassS', [ 'assets/audio/bass S.mp3', 'assets/audio/bass S.wav' ]);
+    this.load.audio('bassD', [ 'assets/audio/bass D.mp3', 'assets/audio/bass D.wav' ]);
+
     this.load.audio('soundA', [ 'assets/audio/sound A.wav' ]);
     this.load.audio('soundB', [ 'assets/audio/sound B.mp3', 'assets/audio/sound B.wav' ]);
     this.load.audio('soundC', [ 'assets/audio/sound C.mp3', 'assets/audio/sound C.wav' ]);
@@ -22,6 +27,7 @@ myGame.Preload.prototype = {
     this.load.audio('soundE', [ 'assets/audio/sound E.mp3', 'assets/audio/sound E.wav' ]);
     this.load.audio('soundF', [ 'assets/audio/sound F.mp3', 'assets/audio/sound F.wav' ]);
     this.load.audio('soundG', [ 'assets/audio/sound G.mp3', 'assets/audio/sound G.wav' ]);
+    this.load.audio('button', [ 'assets/audio/button.mp3', 'assets/audio/button.wav' ]);
   },
 
   create: function() {
