@@ -177,6 +177,8 @@ myGame.GamePlay.prototype = {
   },
 
   update: function() {
+    
+    //Update time
     timeText.setText(timeString);
     timeBox.width = (timeLeft/START_TIME) * singleScreenSize;
     if (!singleScreen) {
@@ -191,10 +193,12 @@ myGame.GamePlay.prototype = {
     
     var pinch1, pinch2;
     
+    //check for circle note collision
     this.physics.arcade.overlap(circle1, notes, this.collisionHandler, null, this);
     this.physics.arcade.overlap(circle2, notes, this.collisionHandler, null, this);
     notes.forEach(this.checkCollisionState, this);
     
+    //hands
     if (hand1) {
       this.monitorHand(hand1, circle1, position1, tween1, tween1big);
     } else {
@@ -206,6 +210,11 @@ myGame.GamePlay.prototype = {
     } else {
       circle2.visible = false;
     }
+    
+    //kill stars
+    // stars.forEachDead(function(star){
+    //   star.destroy();
+    // },this);
   },
   monitorHand:function(hand, circle, position, smalltween, bigtween) {
     circle.visible = true;
@@ -218,7 +227,7 @@ myGame.GamePlay.prototype = {
       }
       
       circle.pinch = true;
-      circle.y = ((-position[1] * 1.5) + game.height * .7) * 2;
+      circle.y = ((-position[1] * 1.5) + game.height * .5) * 2;
     } else {
       if (!bigtween.isRunning) {
         bigtween.start();
@@ -226,7 +235,7 @@ myGame.GamePlay.prototype = {
       }
       
       circle.pinch = false;
-      circle.y = ((-position[1] * 1.5) + game.height * .69) * 2;
+      circle.y = ((-position[1] * 1.5) + game.height * .49) * 2;
     }
     
     // console.log(hand);
@@ -408,11 +417,12 @@ myGame.GamePlay.prototype = {
       var n = this.rnd.integerInRange(0, 6);
       var m = this.rnd.integerInRange(0, 4);
       
-      var star1 = stars.create(0, game.world.randomY, 'star');
-      var star2 = stars.create(0, game.world.randomY, 'star');
-      
-      star1.scale.set(n/5,n/5);
-      star2.scale.set(m/5,m/5);      
+      var star = stars.create(0, game.world.randomY, 'star');
+      star.scale.set(m/5,m/5);
+      star.alpha = Math.random() + 0.1;
+      star.checkWorldBounds = true;
+      star.outOfBoundsKill = true;
+      game.add.tween(star).to( {x: game.world.width + star.width, y: star.y},3000,Phaser.Easing.Linear.None, true);
            
       var colors = [];
       colors[0] = ["0098ff", "0083cc", "006299", "004266", "002133"];
