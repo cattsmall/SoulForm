@@ -60,23 +60,26 @@ myGame.GamePlay.prototype = {
     bassD = game.add.audio('bassD');
     
     //color box (left)
-    boxBmp3 = this.add.bitmapData(singleScreenSize, game.height);
+    boxBmp3 = this.add.bitmapData(game.width, game.height);
     boxBmp3.ctx.fillStyle = "#666666";
     boxBmp3.ctx.beginPath();
-    boxBmp3.ctx.rect(0, 0, singleScreenSize, game.height);
+    boxBmp3.ctx.rect(0, 0, game.width, game.height);
     boxBmp3.ctx.fill();
-    colorBoxLeft = this.add.sprite(0,0, boxBmp3);
+    colorBox = this.add.sprite(0,0, boxBmp3);
+    colorBox.alpha = 0;
+    
+    //stars group
+    stars = game.add.group();
     
     //color box (right)
     boxBmp3 = this.add.bitmapData(singleScreenSize, game.height);
-    boxBmp3.ctx.fillStyle = "#666666";
+    boxBmp3.ctx.fillStyle = "#000000";
     boxBmp3.ctx.beginPath();
     boxBmp3.ctx.rect(0, 0, singleScreenSize, game.height);
     boxBmp3.ctx.fill();
-    colorBoxRight = this.add.sprite(singleScreenSize,0, boxBmp3);
+    colorBoxOverlay = this.add.sprite(0,0, boxBmp3);
     
     //Groups
-    stars = game.add.group();
     notes = game.add.group();
     circles = game.add.group();
 
@@ -85,10 +88,10 @@ myGame.GamePlay.prototype = {
     this.physics.arcade.collide(circles, notes);
     
     // if (!singleScreen) {
-    //   colorBoxRight.x = singleScreenSize*2;
+    //   colorBoxOverlay.x = singleScreenSize*2;
     // } else {
-    //   colorBoxLeft.visible = false;
-    //   colorBoxRight.visible = false;
+    //   colorBox.visible = false;
+    //   colorBoxOverlay.visible = false;
     // }
     
     //Background box (score)
@@ -147,10 +150,7 @@ myGame.GamePlay.prototype = {
     if (!singleScreen) {
       scoreBox.x = singleScreenSize;
       instructionText.x = singleScreenSize*2 - 25;
-      colorBoxRight.x = singleScreenSize*2;
-    } else {
-      colorBoxLeft.visible = false;
-      colorBoxRight.visible = false;
+      colorBoxOverlay.x = singleScreenSize;
     }
     
     key_W = game.input.keyboard.addKey(Phaser.Keyboard.W);
@@ -413,33 +413,34 @@ myGame.GamePlay.prototype = {
     
   },
   changeBackgroundColors: function(){
-    if (!singleScreen) {
-      var n = this.rnd.integerInRange(0, 6);
-      var m = this.rnd.integerInRange(0, 4);
+    var n = this.rnd.integerInRange(0, 6);
+    var m = this.rnd.integerInRange(0, 4);
       
+    if (!singleScreen) {
       var star = stars.create(0, game.world.randomY, 'star');
       star.scale.set(m/5,m/5);
       star.alpha = Math.random() + 0.1;
       star.checkWorldBounds = true;
       star.outOfBoundsKill = true;
       game.add.tween(star).to( {x: game.world.width + star.width, y: star.y},3000,Phaser.Easing.Linear.None, true);
-           
-      var colors = [];
-      colors[0] = ["0098ff", "0083cc", "006299", "004266", "002133"];
-      colors[1] = ["ff00e7", "cc00c2", "990092", "660061", "330031"];
-      colors[2] = ["ffce00", "e5b900", "d8ae00", "a38400", "7f6700"];
-      colors[3] = ["0000ff", "0000cc", "000099", "000066", "000033"];
-      colors[4] = ["ff6700", "cc5200", "993e00", "662900", "331500"];
-      colors[5] = ["00ff00", "00e500", "00cc00", "00a500", "009200"];
-      colors[6] = ["ff2a00", "cc1d00", "991600", "660e00", "330700"];
-      
-      var colorList = colors[n];
-      var colorString = "0x" + colorList[m];
-      
-      var currentTint = colorBoxLeft.tint;
-      
-      colorBoxLeft.tint = colorString;
-      colorBoxRight.tint = colorString;
     }
+         
+    var colors = [];
+    colors[0] = ["0098ff", "0083cc", "006299", "004266", "002133"];
+    colors[1] = ["ff00e7", "cc00c2", "990092", "660061", "330031"];
+    colors[2] = ["ffce00", "e5b900", "d8ae00", "a38400", "7f6700"];
+    colors[3] = ["0000ff", "0000cc", "000099", "000066", "000033"];
+    colors[4] = ["ff6700", "cc5200", "993e00", "662900", "331500"];
+    colors[5] = ["00ff00", "00e500", "00cc00", "00a500", "009200"];
+    colors[6] = ["ff2a00", "cc1d00", "991600", "660e00", "330700"];
+    
+    var colorList = colors[n];
+    var colorString = "0x" + colorList[m];
+    
+    var currentTint = colorBox.tint;
+    
+    colorBoxOverlay.alpha = .65;
+    colorBox.alpha = 1;
+    colorBox.tint = colorString;
   }
 }
