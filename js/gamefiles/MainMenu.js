@@ -4,15 +4,31 @@ myGame.MainMenu.prototype = {
   },
 
   create: function() {
-    console.log("MainMenu");
-    this.startButton = game.add.button(game.world.centerX - 150, game.world.centerY - 150, 'startButton', this.startGame, this, 2, 1, 0);
+    myGame.drawBackgroundColor();
+    myGame.drawOverlay(450);
+    myGame.drawTitleText("Soulform");
+    myGame.drawSubTitleText("A musical experience");
+    var tinyTextStyle = {
+      font: "30px Mensch",
+      fill: "#ffffff",
+      align: "left"
+    };
+    tinyText = game.add.text(25, game.height - 50, "Created in 2014 by catt small", tinyTextStyle);
+    tinyText.alpha = .5;
     
+    this.startButton = game.add.button(game.world.centerX - 150, game.world.height - 395, 'startButton', this.startGame, this, 2, 1, 0);
+    
+    //  Create our Timer
+    this.timer = this.time.create(false);
+    this.timer.loop(2000, myGame.changeBackgroundColor, this);
+    this.timer.start();
   },
 
   update: function() {
     // Update objects & variables
   },
   startGame: function() {
-    this.state.start('GamePlay');
+    this.timer.destroy();
+    this.state.start('PreGamePlay');
   }
 }

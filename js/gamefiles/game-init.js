@@ -3,15 +3,16 @@ var audio_context, recorder,
     circle1, circle2, circles, notes,
     hand1, hand2, position, tween1, tween2, tween1big, tween2big,
     key_W, key_A, key_S, key_D, bassW, bassA, bassS, bassD,
-    stars,
+    stars, noteCount, bassCount,
     scoreBox, score, scoreString, scoreText, timeBox, timer, timeLeft, timeString, timeText, START_TIME,
-    instructionText;
+    instructionText, titleText, subTitleText;
     
 var noteObject = [];
 var noteText = [];
 var sounds = [];
-var composition = []
-
+var composition = [];
+var colorBox = null;
+var colorBoxOverlay = null;
 
 /* --- GOOGLE WEBFONT OBJECT --- */
 //  The Google WebFont Loader will look for this object, so create it before loading the script.
@@ -92,6 +93,63 @@ var myGame = {
   Boot: function(game) {},
   Preload: function(game) {},
   MainMenu: function(game) {},
+  PreGamePlay: function(game) {},
   GamePlay: function(game) {},
-  EndState: function(game) {}
+  EndState: function(game) {},
+  titleStyle: {
+    font: "200px Mensch",
+    fill: "#ffffff",
+    align: "center"
+  },
+  drawTitleText: function(text) {
+    titleText = game.add.text(game.width/2, 300, text, myGame.titleStyle);
+    titleText.anchor.setTo(0.5);
+  },
+  subTitleStyle: {
+    font: "84px Mensch",
+    fill: "#666666",
+    align: "center"
+  },
+  drawSubTitleText: function(text) {
+    subTitleText = game.add.text(game.width/2, 475, text, myGame.subTitleStyle);
+    subTitleText.anchor.setTo(0.5);
+  },
+  drawBackgroundColor: function() {
+    var boxBmp = game.add.bitmapData(game.width, game.height);
+    boxBmp.ctx.fillStyle = "#0098ff";
+    boxBmp.ctx.beginPath();
+    boxBmp.ctx.rect(0, 0, game.width, game.height);
+    boxBmp.ctx.fill();
+    colorBox = game.add.sprite(0,0, boxBmp);
+  },
+  drawOverlay: function(height) {
+    var boxBmp = game.add.bitmapData(game.width, height);
+    boxBmp.ctx.fillStyle = "#000000";
+    boxBmp.ctx.beginPath();
+    boxBmp.ctx.rect(0, 0, game.width, game.height);
+    boxBmp.ctx.fill();
+    colorBoxOverlay = game.add.sprite(0,140, boxBmp);
+  },
+  changeBackgroundColor:function(){
+    var n = game.rnd.integerInRange(0, 6);
+    var m = game.rnd.integerInRange(0, 4);
+         
+    var colors = [];
+    colors[0] = ["0098ff", "0083cc", "006299", "004266", "002133"];
+    colors[1] = ["ff00e7", "cc00c2", "990092", "660061", "330031"];
+    colors[2] = ["ffce00", "e5b900", "d8ae00", "a38400", "7f6700"];
+    colors[3] = ["0000ff", "0000cc", "000099", "000066", "000033"];
+    colors[4] = ["ff6700", "cc5200", "993e00", "662900", "331500"];
+    colors[5] = ["00ff00", "00e500", "00cc00", "00a500", "009200"];
+    colors[6] = ["ff2a00", "cc1d00", "991600", "660e00", "330700"];
+    
+    var colorList = colors[n];
+    var colorString = "0x" + colorList[m];
+    
+    var currentTint = colorBox.tint;
+    
+    colorBoxOverlay.alpha = .65;
+    colorBox.alpha = 1;
+    colorBox.tint = colorString;
+  }
 };

@@ -13,6 +13,7 @@ myGame.Preload.prototype = {
     
     //Buttons
     this.load.spritesheet('startButton', 'assets/images/startbutton.png', 300, 300);
+    this.load.spritesheet('retryButton', 'assets/images/retrybutton.png', 300, 300);
     
     //Sounds
     this.load.audio('bassW', [ 'assets/audio/bass W.mp3', 'assets/audio/bass W.wav' ]);

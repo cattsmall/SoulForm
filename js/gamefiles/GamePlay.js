@@ -4,6 +4,10 @@ myGame.GamePlay.prototype = {
   },
 
   create: function() {
+    
+    noteCount = 0;
+    bassCount = 0;
+    
     //A
     sounds[0] = game.add.audio('soundA');
   	sounds[0].addMarker('4', 0, .25);
@@ -59,19 +63,14 @@ myGame.GamePlay.prototype = {
     bassS = game.add.audio('bassS');
     bassD = game.add.audio('bassD');
     
-    //color box (left)
-    boxBmp3 = this.add.bitmapData(game.width, game.height);
-    boxBmp3.ctx.fillStyle = "#666666";
-    boxBmp3.ctx.beginPath();
-    boxBmp3.ctx.rect(0, 0, game.width, game.height);
-    boxBmp3.ctx.fill();
-    colorBox = this.add.sprite(0,0, boxBmp3);
+    //color box background
+    myGame.drawBackgroundColor();
     colorBox.alpha = 0;
     
     //stars group
     stars = game.add.group();
     
-    //color box (right)
+    //color box overlay
     boxBmp3 = this.add.bitmapData(singleScreenSize, game.height);
     boxBmp3.ctx.fillStyle = "#000000";
     boxBmp3.ctx.beginPath();
@@ -121,7 +120,7 @@ myGame.GamePlay.prototype = {
 //     scoreText = game.add.text(25, game.height-70, scoreString, scoreStyle);
     
     //Time string
-    START_TIME = 60*5;
+    START_TIME = 60*4;
     timeLeft = START_TIME;
     
     this.convertTimeToString();
@@ -323,18 +322,22 @@ myGame.GamePlay.prototype = {
   },
   collisionHandler: function(circle, note) {
     
+    //scale definition
     noteScale = this.add.tween(note.scale).to({x:1.1, y:1.1}, 100).to({x:1, y:1}, 100);
     
+    //If the note has a number
     if (note.noteNumber) {
       textScale = this.add.tween(noteText[note.noteNumber-1].scale).to({x:1.25, y:1.25}, 100).to({x:1, y:1}, 100);
     }
-        
+    
+    //If hand is open
     if (!circle.pinch) {
+      //And note hasn't been played
       if (!note.played) {
         note.tint = "0xffffff";
         note.alpha = 0.8;
         note.played = true;
-        score += 1;
+        noteCount += 1;
         
         //Using stringified variable doesn't seem to be working for marker...
         if (note.rowNumber == 0) {
@@ -364,6 +367,7 @@ myGame.GamePlay.prototype = {
     }
   },
   checkCollisionState: function(note) {
+    //If it's no longer overlapping, it's not being played
     if (!note.overlap(circle1) && !note.overlap(circle2)){
       note.played = false;
       note.tint = note.normalColor;
@@ -380,9 +384,7 @@ myGame.GamePlay.prototype = {
   },
   stopTimer: function(game) {
     this.timer.destroy();
-    stopRecording();
-    console.log("done");
-    this.state.start('MainMenu');
+    this.state.start('EndState');
   },
   convertTimeToString: function(game) {
     var minutes = Math.floor((timeLeft) / 60);
@@ -409,38 +411,23 @@ myGame.GamePlay.prototype = {
         bassD.play();
         break;
     }
-    this.changeBackgroundColors();
     
+    myGame.changeBackgroundColor();
+    bassCount += 1;
+    
+    if (!singleScreen) {
+      this.drawStar();
+    }
   },
-  changeBackgroundColors: function(){
+  drawStar: function(){
     var n = this.rnd.integerInRange(0, 6);
     var m = this.rnd.integerInRange(0, 4);
       
-    if (!singleScreen) {
-      var star = stars.create(0, game.world.randomY, 'star');
-      star.scale.set(m/5,m/5);
-      star.alpha = Math.random() + 0.1;
-      star.checkWorldBounds = true;
-      star.outOfBoundsKill = true;
-      game.add.tween(star).to( {x: game.world.width + star.width, y: star.y},3000,Phaser.Easing.Linear.None, true);
-    }
-         
-    var colors = [];
-    colors[0] = ["0098ff", "0083cc", "006299", "004266", "002133"];
-    colors[1] = ["ff00e7", "cc00c2", "990092", "660061", "330031"];
-    colors[2] = ["ffce00", "e5b900", "d8ae00", "a38400", "7f6700"];
-    colors[3] = ["0000ff", "0000cc", "000099", "000066", "000033"];
-    colors[4] = ["ff6700", "cc5200", "993e00", "662900", "331500"];
-    colors[5] = ["00ff00", "00e500", "00cc00", "00a500", "009200"];
-    colors[6] = ["ff2a00", "cc1d00", "991600", "660e00", "330700"];
-    
-    var colorList = colors[n];
-    var colorString = "0x" + colorList[m];
-    
-    var currentTint = colorBox.tint;
-    
-    colorBoxOverlay.alpha = .65;
-    colorBox.alpha = 1;
-    colorBox.tint = colorString;
+    var star = stars.create(0, game.world.randomY, 'star');
+    star.scale.set(m/5,m/5);
+    star.alpha = Math.random() + 0.1;
+    star.checkWorldBounds = true;
+    star.outOfBoundsKill = true;
+    game.add.tween(star).to( {x: game.world.width + star.width, y: star.y},3000,Phaser.Easing.Linear.None, true);
   }
 }
