@@ -143,7 +143,7 @@ myGame.GamePlay.prototype = {
       fill: "#333333",
       align: "right"
     };
-    instructionText = game.add.text(singleScreenSize-25, game.height-26, "Open hand to play notes, make a fist to stop", instructionsStyle);
+    instructionText = game.add.text(singleScreenSize-25, game.height-26, "Open hand to play notes, make a fist to stop. WASD or arrows for bass!", instructionsStyle);
     instructionText.anchor.setTo(1);
     
     if (!singleScreen) {
