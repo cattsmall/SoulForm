@@ -151,5 +151,8 @@ var myGame = {
     colorBoxOverlay.alpha = .65;
     colorBox.alpha = 1;
     colorBox.tint = colorString;
+  },
+  gofullScreen: function() {
+    game.scale.startFullScreen();
   }
 };
