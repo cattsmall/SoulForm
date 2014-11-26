@@ -28,7 +28,6 @@ myGame.Preload.prototype = {
     this.load.audio('soundE', [ 'assets/audio/sound E.mp3', 'assets/audio/sound E.wav' ]);
     this.load.audio('soundF', [ 'assets/audio/sound F.mp3', 'assets/audio/sound F.wav' ]);
     this.load.audio('soundG', [ 'assets/audio/sound G.mp3', 'assets/audio/sound G.wav' ]);
-    this.load.audio('button', [ 'assets/audio/button.mp3', 'assets/audio/button.wav' ]);
   },
 
   create: function() {

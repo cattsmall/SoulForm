@@ -7,56 +7,57 @@ myGame.GamePlay.prototype = {
     
     noteCount = 0;
     bassCount = 0;
-    
-    //A
-    sounds[0] = game.add.audio('soundA');
-  	sounds[0].addMarker('4', 0, .25);
-  	sounds[0].addMarker('3', .25, .25);
-  	sounds[0].addMarker('2', .5, .25);
-  	sounds[0].addMarker('1', .75, .25);
-  	sounds[0].addMarker('0', .9, .25);
-    //B
-    sounds[1] = game.add.audio('soundB');
+
+    //C
+    sounds[1] = game.add.audio('soundC');
   	sounds[1].addMarker('4', 0, .25);
   	sounds[1].addMarker('3', .25, .25);
   	sounds[1].addMarker('2', .5, .25);
   	sounds[1].addMarker('1', .75, .25);
   	sounds[1].addMarker('0', 1, .25);
-    //C
-    sounds[2] = game.add.audio('soundC');
+    //D
+    sounds[2] = game.add.audio('soundD');
   	sounds[2].addMarker('4', 0, .25);
   	sounds[2].addMarker('3', .25, .25);
   	sounds[2].addMarker('2', .5, .25);
   	sounds[2].addMarker('1', .75, .25);
   	sounds[2].addMarker('0', 1, .25);
-    //D
-    sounds[3] = game.add.audio('soundD');
+    //E
+    sounds[3] = game.add.audio('soundE');
   	sounds[3].addMarker('4', 0, .25);
   	sounds[3].addMarker('3', .25, .25);
   	sounds[3].addMarker('2', .5, .25);
   	sounds[3].addMarker('1', .75, .25);
   	sounds[3].addMarker('0', 1, .25);
-    //E
-    sounds[4] = game.add.audio('soundE');
+    //F
+    sounds[4] = game.add.audio('soundF');
   	sounds[4].addMarker('4', 0, .25);
   	sounds[4].addMarker('3', .25, .25);
   	sounds[4].addMarker('2', .5, .25);
   	sounds[4].addMarker('1', .75, .25);
   	sounds[4].addMarker('0', 1, .25);
-    //F
-    sounds[5] = game.add.audio('soundF');
+    //G
+    sounds[5] = game.add.audio('soundG');
   	sounds[5].addMarker('4', 0, .25);
   	sounds[5].addMarker('3', .25, .25);
   	sounds[5].addMarker('2', .5, .25);
   	sounds[5].addMarker('1', .75, .25);
   	sounds[5].addMarker('0', 1, .25);
-    //G
-    sounds[6] = game.add.audio('soundG');
+    
+    //A
+    sounds[6] = game.add.audio('soundA');
   	sounds[6].addMarker('4', 0, .25);
   	sounds[6].addMarker('3', .25, .25);
   	sounds[6].addMarker('2', .5, .25);
   	sounds[6].addMarker('1', .75, .25);
-  	sounds[6].addMarker('0', 1, .25);
+  	sounds[6].addMarker('0', .9, .25);
+    //B
+    sounds[7] = game.add.audio('soundB');
+  	sounds[7].addMarker('4', 0, .25);
+  	sounds[7].addMarker('3', .25, .25);
+  	sounds[7].addMarker('2', .5, .25);
+  	sounds[7].addMarker('1', .75, .25);
+  	sounds[7].addMarker('0', 1, .25);
     
     bassW = game.add.audio('bassW');
     bassA = game.add.audio('bassA');
@@ -217,7 +218,7 @@ myGame.GamePlay.prototype = {
   },
   monitorHand:function(hand, circle, position, smalltween, bigtween) {
     circle.visible = true;
-    circle.x = (position[0] * 3.5) + game.width/2;
+    circle.x = (position[0] * 6) + game.width/2;
   
     if (hand.pinchStrength > .2 || hand.grabStrength > .2) {
       if (!smalltween.isRunning) {
@@ -226,7 +227,7 @@ myGame.GamePlay.prototype = {
       }
       
       circle.pinch = true;
-      circle.y = ((-position[1] * 1.5) + game.height * .5) * 2;
+      circle.y = ((-position[1] * 1.5) + game.height * .5) * 3;
     } else {
       if (!bigtween.isRunning) {
         bigtween.start();
@@ -234,7 +235,7 @@ myGame.GamePlay.prototype = {
       }
       
       circle.pinch = false;
-      circle.y = ((-position[1] * 1.5) + game.height * .49) * 2;
+      circle.y = ((-position[1] * 1.5) + game.height * .49) * 3;
     }
     
     // console.log(hand);
@@ -269,15 +270,15 @@ myGame.GamePlay.prototype = {
     var columnX, noteY;
     
     var colors = [];
-    colors[0] = ["0098ff", "0083cc", "006299", "004266", "002133"];
-    colors[1] = ["ff00e7", "cc00c2", "990092", "660061", "330031"];
-    colors[2] = ["ffce00", "e5b900", "d8ae00", "a38400", "7f6700"];
-    colors[3] = ["0000ff", "0000cc", "000099", "000066", "000033"];
-    colors[4] = ["ff6700", "cc5200", "993e00", "662900", "331500"];
-    colors[5] = ["00ff00", "00e500", "00cc00", "00a500", "009200"];
-    colors[6] = ["ff2a00", "cc1d00", "991600", "660e00", "330700"];
+    colors[0] = ["ff6700", "cc5200", "993e00", "662900", "331500"];
+    colors[1] = ["00ff00", "00e500", "00cc00", "00a500", "009200"];
+    colors[2] = ["ff2a00", "cc1d00", "991600", "660e00", "330700"];
+    colors[3] = ["0098ff", "0083cc", "006299", "004266", "002133"];
+    colors[4] = ["ff00e7", "cc00c2", "990092", "660061", "330031"];
+    colors[5] = ["ffce00", "e5b900", "d8ae00", "a38400", "7f6700"];
+    colors[6] = ["0000ff", "0000cc", "000099", "000066", "000033"];
     
-    var noteLetters = ["C", "D", "E", "F", "G", "A", "B"];
+    var noteLetters = ["C", "D","E", "F", "G", "A", "B"];
     
     // Horizontal
     for (var i = 0; i < 7; i++) {
@@ -340,16 +341,22 @@ myGame.GamePlay.prototype = {
         noteCount += 1;
         
         //Using stringified variable doesn't seem to be working for marker...
-        if (note.rowNumber == 0) {
-          sounds[note.columnNumber].play('0');
-        } else if (note.rowNumber == 1) {
-          sounds[note.columnNumber].play('1');
-        } else if (note.rowNumber == 2) {
-          sounds[note.columnNumber].play('2');
-        } else if (note.rowNumber == 3) {
-          sounds[note.columnNumber].play('3');
-        } else {
-          sounds[note.columnNumber].play('4');
+        switch (note.rowNumber) {
+          case 0:
+            sounds[note.columnNumber+1].play('0');
+            break;
+          case 1:
+            sounds[note.columnNumber+1].play('1');
+            break;
+          case 2:
+            sounds[note.columnNumber+1].play('2');
+            break;
+          case 3:
+            sounds[note.columnNumber+1].play('3');
+            break;
+          default:
+            sounds[note.columnNumber+1].play('4');
+            break;
         }
       }
       noteScale.start();
