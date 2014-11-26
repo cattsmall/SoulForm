@@ -1,14 +1,21 @@
 SoulForm
 ========
 
-SoulForm is a game/interactive piece I'm working on.
+Make a song in 4 minutes! This game is an experiment intended to reproduce the feeling I get when I dance to music.
+
+For the best experience, plug in a dance mat and hook up the arrows to WASD. Try playing with more than one person for a real good time!
+
+**Controls:**
+
+- WASD/dance mat arrows for various types of bass
+- Leap Motion to play notes
 
 
 ##Props
 -------
 - [LeapJS](https://developer.leapmotion.com/leapjs/welcome)
 - [Phaser](http://phaser.io)
-- [Recorderjs](https://github.com/mattdiamond/Recorderjs)
+- [Mensch Font](http://www.losttype.com/font/?name=mensch)
 
 
 ##Licenses
