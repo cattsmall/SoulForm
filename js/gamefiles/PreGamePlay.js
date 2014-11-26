@@ -53,13 +53,18 @@ myGame.PreGamePlay.prototype = {
       var countdownTime = 3;
       subTitleText.setText("Starting in "+ countdownTime);
       
-      var timer2 = window.setInterval(function () {
-        if (countdownTime > 0) {
+      timer2 = window.setInterval(function () {
+        //If circles are visible and timer is above zero
+        if (countdownTime > 1 && circle1.visible && circle2.visible) {
           countdownTime--;
           subTitleText.setText("Starting in "+ countdownTime);
-        } else {
+          
+          //If circles are visible and timer is at 0
+        } else if (countdownTime === 1 && circle1.visible && circle2.visible) {
           clearInterval(timer2);
           game.state.start('GamePlay');
+        } else {
+          clearInterval(timer2);
         }
       }, 1000);
     } else if ((this.bothHandsVisible && !circle1.visible) || (this.bothHandsVisible && !circle2.visible) || !circle1.visible || !circle2.visible) {
@@ -67,7 +72,6 @@ myGame.PreGamePlay.prototype = {
       titleText.setText("Get ready...");
       subTitleText.setText("Put hands over the leap\nand get 2 circles onscreen");
       this.countdownTime = this.COUNTDOWN_START;
-      clearInterval(this.timer2);
     }
   },
   monitorHand:function(hand, circle, position, smalltween, bigtween) {

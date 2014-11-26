@@ -4,7 +4,7 @@ var audio_context, recorder,
     hand1, hand2, position, tween1, tween2, tween1big, tween2big,
     key_W, key_A, key_S, key_D, bassW, bassA, bassS, bassD,
     stars, noteCount, bassCount,
-    scoreBox, score, scoreString, scoreText, timeBox, timer, timeLeft, timeString, timeText, START_TIME,
+    scoreBox, score, scoreString, scoreText, timeBox, timer, timer2, timeLeft, timeString, timeText, START_TIME,
     instructionText, titleText, subTitleText;
     
 var noteObject = [];
