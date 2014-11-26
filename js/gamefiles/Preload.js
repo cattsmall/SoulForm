@@ -1,11 +1,9 @@
 myGame.Preload.prototype = {
   preload: function() {
-    this.loadingImage = this.add.sprite( this.world.centerX, this.world.centerY, 'loadingImage');
-    this.loadingImage.anchor.setTo(0.5);
-    
-    //Fonts
-    this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
-    
+    // this.loadingImage = this.add.sprite( this.world.centerX, this.world.centerY, 'loadingImage');
+    // this.loadingImage.anchor.setTo(0.5);
+    this.add.text(game.width/2, game.height/2, "loading...", {font: "100px Mensch", fill: "#666666", align: "center"}).anchor.setTo(0.5);
+      
     //Images
     this.load.image('square', 'assets/images/square.png');
     this.load.image('circle', 'assets/images/circle.png');
@@ -31,25 +29,6 @@ myGame.Preload.prototype = {
   },
 
   create: function() {
-    console.log("Preload");
-    
-    // recorder
-    // window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    // navigator.getUserMedia = (
-    //   navigator.getUserMedia ||
-    //     navigator.webkitGetUserMedia ||
-    //     navigator.mozGetUserMedia ||
-    //     navigator.msGetUserMedia
-    // );
-    // window.URL = window.URL || window.webkitURL;
-    //
-    // audio_context = new AudioContext;
-    // console.log('Audio context set up.');
-    // console.log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
-    //
-    // navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
-    //   console.log('No live audio input: ' + e);
-    // });
     this.state.start('MainMenu');
   },
   update: function() {
