@@ -216,13 +216,15 @@ myGame.GamePlay.prototype = {
     if (hand1) {
       this.monitorHand(hand1, circle1, position1, tween1, tween1big);
     } else {
-      circle1.visible = false;
+      circle1.x = -circle1.width;
+      circle1.y = -circle1.height;
     }
     
     if (hand2) {
       this.monitorHand(hand2, circle2, position2, tween2, tween2big);
     } else {
-      circle2.visible = false;
+      circle2.x = -circle2.width;
+      circle2.y = -circle2.height;
     }
     
     //kill stars
@@ -234,7 +236,7 @@ myGame.GamePlay.prototype = {
     circle.visible = true;
     circle.x = (position[0] * 6) + game.width/2;
   
-    if (hand.pinchStrength > .2 || hand.grabStrength > .2) {
+    if (hand.pinchStrength > .5 || hand.grabStrength > .5) {
       if (!smalltween.isRunning) {
         smalltween.start();
         circle.alpha = 0.6;
@@ -353,6 +355,7 @@ myGame.GamePlay.prototype = {
         note.alpha = 0.8;
         note.played = true;
         noteCount += 1;
+        circle.lastNotePlayed = note;
         
         //Using stringified variable doesn't seem to be working for marker...
         switch (note.rowNumber) {
