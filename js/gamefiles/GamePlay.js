@@ -10,54 +10,54 @@ myGame.GamePlay.prototype = {
 
     //C
     sounds[1] = game.add.audio('soundC');
-  	sounds[1].addMarker('4', 0, .25);
-  	sounds[1].addMarker('3', .25, .25);
-  	sounds[1].addMarker('2', .5, .25);
-  	sounds[1].addMarker('1', .75, .25);
-  	sounds[1].addMarker('0', 1, .25);
+  	sounds[1].addMarker('4', 0, .5);
+  	sounds[1].addMarker('3', .5, .5);
+  	sounds[1].addMarker('2', 1, .5);
+  	sounds[1].addMarker('1', 1.5, .5);
+  	sounds[1].addMarker('0', 2, .5);
     //D
     sounds[2] = game.add.audio('soundD');
-  	sounds[2].addMarker('4', 0, .25);
-  	sounds[2].addMarker('3', .25, .25);
-  	sounds[2].addMarker('2', .5, .25);
-  	sounds[2].addMarker('1', .75, .25);
-  	sounds[2].addMarker('0', 1, .25);
+  	sounds[2].addMarker('4', 0, .5);
+  	sounds[2].addMarker('3', .5, .5);
+  	sounds[2].addMarker('2', 1, .5);
+  	sounds[2].addMarker('1', 1.5, .5);
+  	sounds[2].addMarker('0', 2, .5);
     //E
     sounds[3] = game.add.audio('soundE');
-  	sounds[3].addMarker('4', 0, .25);
-  	sounds[3].addMarker('3', .25, .25);
-  	sounds[3].addMarker('2', .5, .25);
-  	sounds[3].addMarker('1', .75, .25);
-  	sounds[3].addMarker('0', 1, .25);
+  	sounds[3].addMarker('4', 0, .5);
+  	sounds[3].addMarker('3', .5, .5);
+  	sounds[3].addMarker('2', 1, .5);
+  	sounds[3].addMarker('1', 1.5, .5);
+  	sounds[3].addMarker('0', 2, .5);
     //F
     sounds[4] = game.add.audio('soundF');
-  	sounds[4].addMarker('4', 0, .25);
-  	sounds[4].addMarker('3', .25, .25);
-  	sounds[4].addMarker('2', .5, .25);
-  	sounds[4].addMarker('1', .75, .25);
-  	sounds[4].addMarker('0', 1, .25);
+  	sounds[4].addMarker('4', 0, .5);
+  	sounds[4].addMarker('3', .5, .5);
+  	sounds[4].addMarker('2', 1, .5);
+  	sounds[4].addMarker('1', 1.5, .5);
+  	sounds[4].addMarker('0', 2, .5);
     //G
     sounds[5] = game.add.audio('soundG');
-  	sounds[5].addMarker('4', 0, .25);
-  	sounds[5].addMarker('3', .25, .25);
-  	sounds[5].addMarker('2', .5, .25);
-  	sounds[5].addMarker('1', .75, .25);
-  	sounds[5].addMarker('0', 1, .25);
+  	sounds[5].addMarker('4', 0, .5);
+  	sounds[5].addMarker('3', .5, .5);
+  	sounds[5].addMarker('2', 1, .5);
+  	sounds[5].addMarker('1', 1.5, .5);
+  	sounds[5].addMarker('0', 2, .5);
     
     //A
     sounds[6] = game.add.audio('soundA');
-  	sounds[6].addMarker('4', 0, .25);
-  	sounds[6].addMarker('3', .25, .25);
-  	sounds[6].addMarker('2', .5, .25);
-  	sounds[6].addMarker('1', .75, .25);
-  	sounds[6].addMarker('0', .9, .25);
+  	sounds[6].addMarker('4', 0, .5);
+  	sounds[6].addMarker('3', .5, .5);
+  	sounds[6].addMarker('2', 1, .5);
+  	sounds[6].addMarker('1', 1.5, .5);
+  	sounds[6].addMarker('0', 2, .5);
     //B
     sounds[7] = game.add.audio('soundB');
-  	sounds[7].addMarker('4', 0, .25);
-  	sounds[7].addMarker('3', .25, .25);
-  	sounds[7].addMarker('2', .5, .25);
-  	sounds[7].addMarker('1', .75, .25);
-  	sounds[7].addMarker('0', 1, .25);
+  	sounds[7].addMarker('4', 0, .5);
+  	sounds[7].addMarker('3', .5, .5);
+  	sounds[7].addMarker('2', 1, .5);
+  	sounds[7].addMarker('1', 1.5, .5);
+  	sounds[7].addMarker('0', 2, .5);
     
     bassW = game.add.audio('bassW');
     bassA = game.add.audio('bassA');
