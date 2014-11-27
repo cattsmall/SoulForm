@@ -167,23 +167,44 @@ myGame.GamePlay.prototype = {
       colorBoxOverlay.x = singleScreenSize;
     }
     
-    key_W = game.input.keyboard.addKey(Phaser.Keyboard.W);
+    //keys
+    key_W = this.input.keyboard.addKey(Phaser.Keyboard.W);
+    key_A = this.input.keyboard.addKey(Phaser.Keyboard.A);
+    key_S = this.input.keyboard.addKey(Phaser.Keyboard.S);
+    key_D = this.input.keyboard.addKey(Phaser.Keyboard.D);
+    cursors = this.input.keyboard.createCursorKeys();
+    
+    //WASD
     key_W.onDown.add(function(){
       this.playBeat(key_W);
     }, this);
     
-    key_A = game.input.keyboard.addKey(Phaser.Keyboard.A);
     key_A.onDown.add(function(){
       this.playBeat(key_A);
     }, this);
     
-    key_S = game.input.keyboard.addKey(Phaser.Keyboard.S);
     key_S.onDown.add(function(){
       this.playBeat(key_S);
     }, this);
     
-    key_D = game.input.keyboard.addKey(Phaser.Keyboard.D);
     key_D.onDown.add(function(){
+      this.playBeat(key_D);
+    }, this);
+    
+    //cursors
+    cursors.up.onDown.add(function(){
+      this.playBeat(key_W);
+    }, this);
+    
+    cursors.right.onDown.add(function(){
+      this.playBeat(key_A);
+    }, this);
+    
+    cursors.down.onDown.add(function(){
+      this.playBeat(key_S);
+    }, this);
+    
+    cursors.left.onDown.add(function(){
       this.playBeat(key_D);
     }, this);
     
