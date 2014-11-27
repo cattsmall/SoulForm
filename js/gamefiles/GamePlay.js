@@ -59,10 +59,24 @@ myGame.GamePlay.prototype = {
   	sounds[7].addMarker('1', 1.5, .5);
   	sounds[7].addMarker('0', 2, .5);
     
+    //Multiple notes playing at once
+    sounds[1].allowMultiple = true;
+    sounds[2].allowMultiple = true;
+    sounds[3].allowMultiple = true;
+    sounds[4].allowMultiple = true;
+    sounds[5].allowMultiple = true;
+    sounds[6].allowMultiple = true;
+    sounds[7].allowMultiple = true;
+    
     bassW = game.add.audio('bassW');
     bassA = game.add.audio('bassA');
     bassS = game.add.audio('bassS');
     bassD = game.add.audio('bassD');
+    
+    bassW.allowMultiple = true;
+    bassA.allowMultiple = true;
+    bassS.allowMultiple = true;
+    bassD.allowMultiple = true;
     
     //color box background
     myGame.drawBackgroundColor();
