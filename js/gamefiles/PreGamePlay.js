@@ -4,6 +4,10 @@ myGame.PreGamePlay.prototype = {
   },
 
   create: function() {
+    //Fullscreen key
+    key_L = game.input.keyboard.addKey(Phaser.Keyboard.L);
+    key_L.onDown.add(myGame.gofullScreen);
+    
     // Create objects
     myGame.drawBackgroundColor();
     myGame.drawOverlay(490);

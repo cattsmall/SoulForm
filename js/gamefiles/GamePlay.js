@@ -4,7 +4,11 @@ myGame.GamePlay.prototype = {
   },
 
   create: function() {
+    //Fullscreen key
+    key_L = game.input.keyboard.addKey(Phaser.Keyboard.L);
+    key_L.onDown.add(myGame.gofullScreen);
     
+    //Stats
     noteCount = 0;
     bassCount = 0;
 

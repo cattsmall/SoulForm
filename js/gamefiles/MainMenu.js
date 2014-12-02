@@ -23,6 +23,7 @@ myGame.MainMenu.prototype = {
     this.timer.loop(2000, myGame.changeBackgroundColor, this);
     this.timer.start();
     
+    //Fullscreen key
     key_L = game.input.keyboard.addKey(Phaser.Keyboard.L);
     key_L.onDown.add(myGame.gofullScreen);
   },
