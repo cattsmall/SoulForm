@@ -3,7 +3,7 @@ var audio_context, recorder,
     circle1, circle2, circles, notes,
     hand1, hand2, position, tween1, tween2, tween1big, tween2big,
     key_W, key_A, key_S, key_D, cursors, bassW, bassA, bassS, bassD,
-    stars, heMan1, heMan2, noteCount, bassCount,
+    stars, starScale, heMan1, heMan2, noteCount, bassCount,
     scoreBox, score, scoreString, scoreText, timeBox, timer, timer2, timeLeft, timeString, timeText, START_TIME,
     instructionText, titleText, subTitleText;
     
@@ -13,6 +13,16 @@ var sounds = [];
 var composition = [];
 var colorBox = null;
 var colorBoxOverlay = null;
+var colors = [];
+var noteLetters = ["C", "D","E", "F", "G", "A", "B"];
+
+colors[0] = ["ff6700", "cc5200", "993e00", "662900", "331500"];
+colors[1] = ["00ff00", "00e500", "00cc00", "00a500", "009200"];
+colors[2] = ["ff2a00", "cc1d00", "991600", "660e00", "330700"];
+colors[3] = ["0098ff", "0083cc", "006299", "004266", "002133"];
+colors[4] = ["ff00e7", "cc00c2", "990092", "660061", "330031"];
+colors[5] = ["ffce00", "e5b900", "d8ae00", "a38400", "7f6700"];
+colors[6] = ["0000ff", "0000cc", "000099", "000066", "000033"];
 
 /* --- GOOGLE WEBFONT OBJECT --- */
 //  The Google WebFont Loader will look for this object, so create it before loading the script.
@@ -133,15 +143,6 @@ var myGame = {
   changeBackgroundColor:function(){
     var n = game.rnd.integerInRange(0, 6);
     var m = game.rnd.integerInRange(0, 4);
-         
-    var colors = [];
-    colors[0] = ["0098ff", "0083cc", "006299", "004266", "002133"];
-    colors[1] = ["ff00e7", "cc00c2", "990092", "660061", "330031"];
-    colors[2] = ["ffce00", "e5b900", "d8ae00", "a38400", "7f6700"];
-    colors[3] = ["0000ff", "0000cc", "000099", "000066", "000033"];
-    colors[4] = ["ff6700", "cc5200", "993e00", "662900", "331500"];
-    colors[5] = ["00ff00", "00e500", "00cc00", "00a500", "009200"];
-    colors[6] = ["ff2a00", "cc1d00", "991600", "660e00", "330700"];
     
     var colorList = colors[n];
     var colorString = "0x" + colorList[m];

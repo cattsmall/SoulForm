@@ -93,11 +93,13 @@ myGame.GamePlay.prototype = {
     if (!singleScreen) {
       heMan1 = this.add.sprite(singleScreenSize/2, game.height/2, 'heMan');
       heMan1.anchor.setTo(0.5);
-      heMan1.animations.add('headbang', [0,1,2,3,2,1,0]);
+      heMan1.alpha = 0;
+      heMan1.animations.add('headbang', [0,1,2,2,3,3,3,3,3,2,2,1,0]);
       
       heMan2 = this.add.sprite(singleScreenSize*2 + (singleScreenSize/2), game.height/2, 'heMan');
       heMan2.anchor.setTo(0.5);
-      heMan2.animations.add('headbang', [0,1,2,3,2,1,0]);
+      heMan2.alpha = 0;
+      heMan2.animations.add('headbang', [0,1,2,2,3,3,3,3,3,2,2,1,0]);
     }
     
     //color box overlay
@@ -180,6 +182,7 @@ myGame.GamePlay.prototype = {
       scoreBox.x = singleScreenSize;
       instructionText.x = singleScreenSize*2 - 25;
       colorBoxOverlay.x = singleScreenSize;
+      timeText.alpha = 0;
     }
     
     //keys
@@ -251,14 +254,14 @@ myGame.GamePlay.prototype = {
     //hands
     if (hand1) {
       this.monitorHand(hand1, circle1, position1, tween1, tween1big);
-    } else {
+    } else if (circle1.x != -circle1.width) {
       circle1.x = -circle1.width;
       circle1.y = -circle1.height;
     }
     
     if (hand2) {
       this.monitorHand(hand2, circle2, position2, tween2, tween2big);
-    } else {
+    } else if (circle2.x != -circle2.width) {
       circle2.x = -circle2.width;
       circle2.y = -circle2.height;
     }
@@ -319,17 +322,6 @@ myGame.GamePlay.prototype = {
   drawNotes: function() {
     var noteBmp = [];
     var columnX, noteY;
-    
-    var colors = [];
-    colors[0] = ["ff6700", "cc5200", "993e00", "662900", "331500"];
-    colors[1] = ["00ff00", "00e500", "00cc00", "00a500", "009200"];
-    colors[2] = ["ff2a00", "cc1d00", "991600", "660e00", "330700"];
-    colors[3] = ["0098ff", "0083cc", "006299", "004266", "002133"];
-    colors[4] = ["ff00e7", "cc00c2", "990092", "660061", "330031"];
-    colors[5] = ["ffce00", "e5b900", "d8ae00", "a38400", "7f6700"];
-    colors[6] = ["0000ff", "0000cc", "000099", "000066", "000033"];
-    
-    var noteLetters = ["C", "D","E", "F", "G", "A", "B"];
     
     // Horizontal
     for (var i = 0; i < 7; i++) {
@@ -476,19 +468,30 @@ myGame.GamePlay.prototype = {
     
     if (!singleScreen) {
       this.drawStar();
-      heMan1.animations.play('headbang', 5, false);
-      heMan2.animations.play('headbang', 5, false);
+      heMan1.animations.play('headbang', 40, false);
+      game.add.tween(heMan1).to({alpha:.5},400,null, true).to({alpha:0},200,null, true);
+      
+      heMan2.animations.play('headbang', 40, false);
+      game.add.tween(heMan2).to({alpha:.5},400,null, true).to({alpha:0},200,null, true);
     }
   },
   drawStar: function(){
     var n = this.rnd.integerInRange(0, 6);
     var m = this.rnd.integerInRange(0, 4);
-      
-    var star = stars.create(0, game.world.randomY, 'star');
-    star.scale.set(m/5,m/5);
-    star.alpha = Math.random() + 0.1;
-    star.checkWorldBounds = true;
-    star.outOfBoundsKill = true;
-    game.add.tween(star).to( {x: game.world.width + star.width, y: star.y},3000,Phaser.Easing.Linear.None, true);
+    var newstars = [];
+    
+    for (i = 0; i < 10; i++) {
+      newstars[i] = stars.create(game.world.randomX, game.world.randomY, 'star');
+      newstars[i].scale.set(i/10+0.5,i/10+0.5);
+      newstars[i].alpha = Math.random() + 0.1;
+      newstars[i].checkWorldBounds = true;
+      newstars[i].outOfBoundsKill = true;
+      if (i%2 == 0) {
+        game.add.tween(newstars[i]).to( {x: game.world.width + newstars[i].width},3000,Phaser.Easing.Linear.None, true);
+      } else {
+        game.add.tween(newstars[i]).to( {x: -newstars[i].width},3000,Phaser.Easing.Linear.None, true);
+      }
+    }
+    
   }
 }

@@ -19,7 +19,7 @@
     
       var GAME_WIDTH;
       var GAME_HEIGHT;
-      var singleScreen = false;
+      var singleScreen = true;
       var singleScreenSize = GAME_WIDTH/3;
       
       if (!singleScreen) {
@@ -34,7 +34,7 @@
       }
     
       // Instantiate game
-      var game = new Phaser.Game(GAME_WIDTH, GAME_HEIGHT, Phaser.CANVAS, 'gamecontainer', myGame.Boot);
+      var game = new Phaser.Game(GAME_WIDTH, GAME_HEIGHT, Phaser.AUTO, 'gamecontainer', myGame.Boot);
 
       //Create game states
       game.state.add('Boot', myGame.Boot);

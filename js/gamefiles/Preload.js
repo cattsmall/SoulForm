@@ -30,7 +30,11 @@ myGame.Preload.prototype = {
   },
 
   create: function() {
-    this.state.start('MainMenu');
+    if (!singleScreen) {
+      this.state.start('GamePlay');
+    } else {
+      this.state.start('MainMenu');
+    }
   },
   update: function() {
     // Update objects & variables
