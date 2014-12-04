@@ -8,6 +8,7 @@ myGame.Preload.prototype = {
     this.load.image('square', 'assets/images/square.png');
     this.load.image('circle', 'assets/images/circle.png');
     this.load.image('star', 'assets/images/star.png');
+    this.load.spritesheet('heMan', 'assets/images/heman.png', 1300, 1080);
     
     //Buttons
     this.load.spritesheet('startButton', 'assets/images/startbutton.png', 300, 300);

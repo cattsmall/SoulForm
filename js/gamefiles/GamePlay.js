@@ -85,9 +85,20 @@ myGame.GamePlay.prototype = {
     //color box background
     myGame.drawBackgroundColor();
     colorBox.alpha = 0;
-    
+        
     //stars group
     stars = game.add.group();
+    
+    //heman
+    if (!singleScreen) {
+      heMan1 = this.add.sprite(singleScreenSize/2, game.height/2, 'heMan');
+      heMan1.anchor.setTo(0.5);
+      heMan1.animations.add('headbang', [0,1,2,3,2,1,0]);
+      
+      heMan2 = this.add.sprite(singleScreenSize*2 + (singleScreenSize/2), game.height/2, 'heMan');
+      heMan2.anchor.setTo(0.5);
+      heMan2.animations.add('headbang', [0,1,2,3,2,1,0]);
+    }
     
     //color box overlay
     boxBmp3 = this.add.bitmapData(singleScreenSize, game.height);
@@ -306,7 +317,6 @@ myGame.GamePlay.prototype = {
     game.physics.enable(circle2, Phaser.Physics.ARCADE);
   },
   drawNotes: function() {
-    console.log("hi");
     var noteBmp = [];
     var columnX, noteY;
     
@@ -466,6 +476,8 @@ myGame.GamePlay.prototype = {
     
     if (!singleScreen) {
       this.drawStar();
+      heMan1.animations.play('headbang', 5, false);
+      heMan2.animations.play('headbang', 5, false);
     }
   },
   drawStar: function(){
