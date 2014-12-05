@@ -152,7 +152,11 @@ myGame.GamePlay.prototype = {
 //     scoreText = game.add.text(25, game.height-70, scoreString, scoreStyle);
     
     //Time string
-    START_TIME = 60*4;
+    if (!singleScreen) {
+      START_TIME = 60*3;
+    } else {
+      START_TIME = 60*4;
+    }
     timeLeft = START_TIME;
     
     this.convertTimeToString();
@@ -183,6 +187,7 @@ myGame.GamePlay.prototype = {
       instructionText.x = singleScreenSize*2 - 25;
       colorBoxOverlay.x = singleScreenSize;
       timeText.alpha = 0;
+      instructionText.alpha = 0;
     }
     
     //keys
@@ -275,7 +280,7 @@ myGame.GamePlay.prototype = {
     circle.visible = true;
     circle.x = (position[0] * 6) + game.width/2;
   
-    if (hand.pinchStrength > .8 || hand.grabStrength > .5) {
+    if (hand.pinchStrength > .9 || hand.grabStrength > .9) {
       if (!smalltween.isRunning) {
         smalltween.start();
         circle.alpha = 0.6;
