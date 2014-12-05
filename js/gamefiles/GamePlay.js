@@ -275,7 +275,7 @@ myGame.GamePlay.prototype = {
     circle.visible = true;
     circle.x = (position[0] * 6) + game.width/2;
   
-    if (hand.pinchStrength > .5 || hand.grabStrength > .5) {
+    if (hand.pinchStrength > .8 || hand.grabStrength > .5) {
       if (!smalltween.isRunning) {
         smalltween.start();
         circle.alpha = 0.6;

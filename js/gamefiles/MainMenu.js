@@ -33,6 +33,10 @@ myGame.MainMenu.prototype = {
   },
   startGame: function() {
     this.timer.destroy();
-    this.state.start('PreGamePlay');
+    if (!singleScreen) {
+      this.state.start('GamePlay');
+    } else {
+      this.state.start('PreGamePlay');
+    }
   }
 }
